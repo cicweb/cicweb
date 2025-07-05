@@ -2,16 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ZiadGo.uk</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZiadGo.uk – Home</title>
 
-  <!-- Required by AdSense to verify ownership -->
+  <!-- Google AdSense Auto Ads (required on every page) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3952632660351158"
      crossorigin="anonymous"></script>
 
+  <!-- Google CMP for GDPR / UK privacy compliance -->
+  <script type="text/javascript" async
+    src="https://fundingchoicesmessages.google.com/i/pub-3952632660351158?ers=1"
+    nonce="CMP_NONCE"></script>
+
+  <script nonce="CMP_NONCE">
+    (function() {
+      window.__fc = window.__fc || {};
+      window.__fc.user = {
+        onConsentChanged: function(consentStatus) {
+          console.log('Consent status:', consentStatus);
+        }
+      };
+    })();
+  </script>
+
+  <style>
+    :root{
+      --brand:#0066cc;
+      --bg:#f9f9f9;
+      --card-bg:#fff;
+      --text:#333;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    header{
+      background:var(--brand);
+      color:#fff;
+      padding:1rem 1.5rem;
+    }
+    header h1{margin:0;font-size:1.5rem;}
+    nav a{
+      color:#fff;
+      margin-right:1rem;
+      text-decoration:none;
+      font-weight:bold;
+    }
+    .container{
+      max-width:800px;
+      margin:2rem auto;
+      background:var(--card-bg);
+      padding:2rem 1.5rem;
+      box-shadow:0 2px 6px rgba(0,0,0,0.05);
+      border-radius:8px;
+    }
+    footer{
+      text-align:center;
+      font-size:.875rem;
+      padding:2rem 0;
+      color:#777;
+    }
+    @media(max-width:600px){
+      .container{margin:1rem;}
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello from ZiadGo.uk!</h1>
-  <p>This is my website connected to AdSense.</p>
+  <header>
+    <h1>ZiadGo.uk</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy&nbsp;Policy</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Welcome to ZiadGo.uk!</h2>
+    <p>
+      This is a demo site hosted on GitHub Pages and monetised with Google AdSense.
+      You’re seeing this page because you downloaded the ready‑to‑deploy template.
+    </p>
+    <p>
+      AdSense Auto Ads will decide the best positions for ads on this page once
+      Google crawls and indexes the site. From the European Economic Area and UK,
+      visitors will see a cookie consent banner powered by Google’s Funding Choices CMP.
+    </p>
+    <p>
+      Feel free to replace this content with your own articles, tutorials, or anything
+      you like. Just keep the AdSense &amp; CMP code inside the &lt;head&gt; of every page.
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2025 ZiadGo.uk. All rights reserved.
+  </footer>
 </body>
 </html>
