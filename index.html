@@ -1,103 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZiadGo.uk – Home</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to ZiadGo.uk</title>
 
-  <!-- Google AdSense Auto Ads (required on every page) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3952632660351158"
-     crossorigin="anonymous"></script>
-
-  <!-- Google CMP for GDPR / UK privacy compliance -->
-  <script type="text/javascript" async
-    src="https://fundingchoicesmessages.google.com/i/pub-3952632660351158?ers=1"
-    nonce="CMP_NONCE"></script>
-
-  <script nonce="CMP_NONCE">
-    (function() {
-      window.__fc = window.__fc || {};
-      window.__fc.user = {
-        onConsentChanged: function(consentStatus) {
-          console.log('Consent status:', consentStatus);
-        }
-      };
-    })();
+  <!-- ─── EZOIC HEADER (must be first for integration) ──────────────────────── -->
+  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script>
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
   </script>
 
-  <style>
-    :root{
-      --brand:#0066cc;
-      --bg:#f9f9f9;
-      --card-bg:#fff;
-      --text:#333;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background:var(--bg);
-    }
-    header{
-      background:var(--brand);
-      color:#fff;
-      padding:1rem 1.5rem;
-    }
-    header h1{margin:0;font-size:1.5rem;}
-    nav a{
-      color:#fff;
-      margin-right:1rem;
-      text-decoration:none;
-      font-weight:bold;
-    }
-    .container{
-      max-width:800px;
-      margin:2rem auto;
-      background:var(--card-bg);
-      padding:2rem 1.5rem;
-      box-shadow:0 2px 6px rgba(0,0,0,0.05);
-      border-radius:8px;
-    }
-    footer{
-      text-align:center;
-      font-size:.875rem;
-      padding:2rem 0;
-      color:#777;
-    }
-    @media(max-width:600px){
-      .container{margin:1rem;}
-    }
-  </style>
+  <!-- ─── EZOIC CMP (Consent Management Platform for GDPR/CCPA) ────────────── -->
+  <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+  <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+
+  <!-- ─── GOOGLE ADSENSE AUTO‑ADS (replace with your ca‑pub) ───────────────── -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3952632660351158"
+    crossorigin="anonymous"></script>
+
+  <!-- (Optional) TailwindCSS for clean styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>ZiadGo.uk</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="privacy.html">Privacy&nbsp;Policy</a>
-    </nav>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-700 text-white py-8 shadow">
+    <h1 class="text-3xl sm:text-5xl font-extrabold text-center tracking-wide">
+      Welcome to ZiadGo.uk
+    </h1>
   </header>
 
-  <div class="container">
-    <h2>Welcome to ZiadGo.uk!</h2>
-    <p>
-      This is a demo site hosted on GitHub Pages and monetised with Google AdSense.
-      You’re seeing this page because you downloaded the ready‑to‑deploy template.
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 py-10">
+    <p class="text-lg sm:text-xl leading-relaxed mb-8 text-center">
+      This is the official homepage of <strong>ZiadGo.uk</strong>. Explore tutorials,
+      projects, and insights on tech and DIY electronics.
     </p>
-    <p>
-      AdSense Auto Ads will decide the best positions for ads on this page once
-      Google crawls and indexes the site. From the European Economic Area and UK,
-      visitors will see a cookie consent banner powered by Google’s Funding Choices CMP.
-    </p>
-    <p>
-      Feel free to replace this content with your own articles, tutorials, or anything
-      you like. Just keep the AdSense &amp; CMP code inside the &lt;head&gt; of every page.
-    </p>
-  </div>
 
-  <footer>
-    &copy; 2025 ZiadGo.uk. All rights reserved.
+    <section class="bg-white shadow rounded-lg p-6 mb-10">
+      <h2 class="text-2xl font-semibold mb-4">Latest Articles</h2>
+      <ul class="list-disc list-inside space-y-2 text-base">
+        <li>How to host a website on GitHub Pages</li>
+        <li>ESP8266 Web Server tutorial</li>
+        <li>Arduino Ultrasonic Gate project</li>
+      </ul>
+    </section>
+
+    <!-- Ezoic Ad Placeholder (replace ID below with real placeholder ID) -->
+    <div id="ezoic-pub-ad-placeholder-101" class="my-8"></div>
+    <script>
+      ezstandalone.cmd.push(function () {
+        ezstandalone.showAds(101);
+      });
+    </script>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-6 text-center">
+    <p>&copy; 2025 ZiadGo.uk • All rights reserved.</p>
   </footer>
 </body>
 </html>
