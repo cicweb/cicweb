@@ -1,67 +1,60 @@
+# i7cn YouTube Channel
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to ZiadGo.uk</title>
-
-  <!-- ─── EZOIC HEADER (must be first for integration) ──────────────────────── -->
-  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-  <script>
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-  </script>
-
-  <!-- ─── EZOIC CMP (Consent Management Platform for GDPR/CCPA) ────────────── -->
-  <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-  <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-
-  <!-- ─── GOOGLE ADSENSE AUTO‑ADS (replace with your ca‑pub) ───────────────── -->
-  <script async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3952632660351158"
-    crossorigin="anonymous"></script>
-
-  <!-- (Optional) TailwindCSS for clean styling -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>i7cn - Gaming Channel</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+<body>
+    <header>
+        <h1>Welcome to i7cn</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#streams">Live Streams</a></li>
+                <li><a href="#videos">Latest Videos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased flex flex-col min-h-screen">
-
-  <!-- Header -->
-  <header class="bg-blue-700 text-white py-8 shadow">
-    <h1 class="text-3xl sm:text-5xl font-extrabold text-center tracking-wide">
-      Welcome to ZiadGo.uk
-    </h1>
-  </header>
-
-  <!-- Main Content -->
-  <main class="flex-grow container mx-auto px-4 py-10">
-    <p class="text-lg sm:text-xl leading-relaxed mb-8 text-center">
-      This is the official homepage of <strong>ZiadGo.uk</strong>. Explore tutorials,
-      projects, and insights on tech and DIY electronics.
-    </p>
-
-    <section class="bg-white shadow rounded-lg p-6 mb-10">
-      <h2 class="text-2xl font-semibold mb-4">Latest Articles</h2>
-      <ul class="list-disc list-inside space-y-2 text-base">
-        <li>How to host a website on GitHub Pages</li>
-        <li>ESP8266 Web Server tutorial</li>
-        <li>Arduino Ultrasonic Gate project</li>
-      </ul>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>i7cn is your go-to channel for thrilling gaming content and live streaming experiences. Join us as we explore the latest games and connect with our community!</p>
     </section>
 
-    <!-- Ezoic Ad Placeholder (replace ID below with real placeholder ID) -->
-    <div id="ezoic-pub-ad-placeholder-101" class="my-8"></div>
-    <script>
-      ezstandalone.cmd.push(function () {
-        ezstandalone.showAds(101);
-      });
-    </script>
-  </main>
+    <section id="streams">
+        <h2>Live Streams</h2>
+        <p>Catch us live on our streaming schedule! We play a variety of games and interact with our viewers in real-time.</p>
+        <ul>
+            <li>Monday: Roblox</li>
+            <li>Wednesday: May Stream Roblox</li>
+            <li>Friday: Minecraft Bedrock</li>
+        </ul>
+    </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-gray-300 py-6 text-center">
-    <p>&copy; 2025 ZiadGo.uk • All rights reserved.</p>
-  </footer>
+    <section id="videos">
+        <h2>Latest Videos</h2>
+        <div class="video">
+            <h3>Grow a Garden</h3>
+            <iframe width="560" height="315" src="https://youtube.com/live/Qr0w0J0871A?feature=share" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video">
+            <h3>Roblox Strongest Battlegrounds</h3>
+            <iframe width="560" height="315" src="https://youtube.com/live/MnsB8uw2Buw?feature=share" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>For inquiries, please reach out to us at <a href="mailto:admin@ziadgo.uk">admin@ziadgo.uk</a>.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 i7cn. All rights reserved.</p>
+    </footer>
 </body>
 </html>
