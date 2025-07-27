@@ -1,60 +1,129 @@
-# i7cn YouTube Channel
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>i7cn - Gaming Channel</title>
-    <link rel="stylesheet" href="styles.css">
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Awaiken Theme">
+	<!-- Page Title -->
+	<title>Launch - Under Maintenance HTML Template</title>
+	<!-- Google Fonts css-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+	<!-- Bootstrap css -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font Awesome icon css-->
+	<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<!-- Main custom css -->
+	<link href="css/custom.css" rel="stylesheet" media="screen">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-    <header>
-        <h1>Welcome to i7cn</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#streams">Live Streams</a></li>
-                <li><a href="#videos">Latest Videos</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+	
+	<!-- Coming Soon Wrapper starts -->
+	<div class="comming-soon">
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="coming-soon-box">
+						<!-- Logo Start -->
+						<div class="logo">
+							<h1>Launch</h1>
+							<p>Lorem ipsum dolor sit amet</p>
+						</div>
+						<!-- Logo end -->
+						
+						<!-- Types Information start -->
+						<div class="coming-text">
+							<p>Keep calm, we are</p>
+							<h2><span class="typed-title">Launching in</span></h2>
+							<div class="typing-title">
+								<p>Launching in</p>
+								<p>Coming Soon</p>
+							</div>
+						</div>
+						<!-- Types Information end -->
+						
+						<!-- Countdown start -->
+						<div class="countdown-timer-wrapper">
+							<div class="timer" id="countdown"></div>
+						</div>
+						<!-- Countdown end -->
+						
+						<!-- Newsletter Form start -->
+						<div class="newsletter">
+							<p>The future has a way of arriving unannounced.</p>
+							
+							<div class="newsletter-form">
+								<form action="#" method="post">
+									<input type="text" class="new-text" placeholder="Enter your email address...." required />
+									<button type="submit" class="new-btn">Notify Me</button>
+								</form>
+							</div>
+						</div>
+						<!-- Newsletter Form end -->
+						
+						<!-- Social Media start -->
+						<div class="social-link">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
+						</div>
+						<!-- Social Media end -->	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Coming Soon Wrapper end -->
+	
+    <!-- Jquery Library File -->
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<!-- Timer counter js file -->
+	<script src="js/countdown-timer.js"></script>
+	<!-- Typed js file -->
+	<script src="js/typed.js"></script>
+	<!-- SmoothScroll -->
+	<script src="js/SmoothScroll.js"></script>
+    <!-- Bootstrap js file -->
+	<script src="js/bootstrap.min.js"></script>
+    <!-- Main Custom js file -->
+	<script src="js/function.js"></script>
+	<!-- Timer counter start -->
+	<script>
+        $(document).ready(function (){
+			//var myDate = new Date("08/04/2019");
+			var myDate = new Date();
+			myDate.setDate(myDate.getDate() + 2);
+            $("#countdown").countdown(myDate, function (event) {
+                $(this).html(
+                    event.strftime(
+                        '<div class="timer-wrapper"><div class="time">%D</div><span class="text">Days</span></div><div class="timer-wrapper"><div class="time">%H</div><span class="text">Hours</span></div><div class="timer-wrapper"><div class="time">%M</div><span class="text">Minutes</span></div><div class="timer-wrapper"><div class="time">%S</div><span class="text">Seconds</span></div>'
+                    )
+                );
+            });
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>i7cn is your go-to channel for thrilling gaming content and live streaming experiences. Join us as we explore the latest games and connect with our community!</p>
-    </section>
+        });
+    </script>
+	<!-- Timer counter end -->
 
-    <section id="streams">
-        <h2>Live Streams</h2>
-        <p>Catch us live on our streaming schedule! We play a variety of games and interact with our viewers in real-time.</p>
-        <ul>
-            <li>Monday: Roblox</li>
-            <li>Wednesday: May Stream Roblox</li>
-            <li>Friday: Minecraft Bedrock</li>
-        </ul>
-    </section>
+<!-- Johnvertisement Embed -->
+<div style="text-align:center;">
+  <iframe 
+    src="https://john.citrons.xyz/embed?ref=ziadgo.uk" 
+    style="max-width:732px;width:100%;height:94px;border:none;">
+  </iframe>
+</div>
 
-    <section id="videos">
-        <h2>Latest Videos</h2>
-        <div class="video">
-            <h3>Grow a Garden</h3>
-            <iframe width="560" height="315" src="https://youtube.com/live/Qr0w0J0871A?feature=share" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="video">
-            <h3>Roblox Strongest Battlegrounds</h3>
-            <iframe width="560" height="315" src="https://youtube.com/live/MnsB8uw2Buw?feature=share" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>For inquiries, please reach out to us at <a href="mailto:admin@ziadgo.uk">admin@ziadgo.uk</a>.</p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 i7cn. All rights reserved.</p>
-    </footer>
 </body>
 </html>
