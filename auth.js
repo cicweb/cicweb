@@ -1,4 +1,4 @@
-
+// Your Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyBExbceuED5PMbIG3jP8UllYqU7ns0xLjM",
   authDomain: "ziadlogin-88ae1.firebaseapp.com",
@@ -12,19 +12,16 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
+// Sign in with Google
 function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider)
-    .then(result => {
+    .then((result) => {
+      console.log("Signed in as:", result.user.displayName);
       window.location.href = "dashboard.html";
     })
-    .catch(error => {
-      console.error(error.message);
+    .catch((error) => {
+      console.error(error);
+      alert("Login failed: " + error.message);
     });
 }
-
-auth.onAuthStateChanged(user => {
-  if (user) {
-    window.location.href = "dashboard.html";
-  }
-});
