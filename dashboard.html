@@ -1,24 +1,30 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-  <script defer src="dashboard.js"></script>
+  <title>ZiadGo Dashboard</title>
 </head>
 <body>
-  <h1>Team Scoreboard</h1>
-  <p id="userEmail"></p>
-  <button onclick="logout()">Logout</button>
+  <h1>Ziad vs Hazem</h1>
+  <div>
+    <h2>Ziad: <span id="ziadScore">0</span></h2>
+    <button onclick="updateScore('ziad', 1)">+1</button>
+    <button onclick="updateScore('ziad', -1)">-1</button>
+  </div>
 
-  <h2>Ziad: <span id="ziadScore">0</span></h2>
-  <button onclick="updateScore('ziad', 1)">+1</button>
-  <button onclick="updateScore('ziad', -1)">-1</button>
+  <div>
+    <h2>Hazem: <span id="hazemScore">0</span></h2>
+    <button onclick="updateScore('hazem', 1)">+1</button>
+    <button onclick="updateScore('hazem', -1)">-1</button>
+  </div>
 
-  <h2>Hazem: <span id="hazemScore">0</span></h2>
-  <button onclick="updateScore('hazem', 1)">+1</button>
-  <button onclick="updateScore('hazem', -1)">-1</button>
+  <button onclick="signOut()">Sign out</button>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.24.0/firebase-firestore-compat.js"></script>
+
+  <!-- Dashboard logic -->
+  <script src="dashboard.js"></script>
 </body>
 </html>
