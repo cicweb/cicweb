@@ -1,4 +1,4 @@
-
+// Firebase config (again, needed here too)
 const firebaseConfig = {
   apiKey: "AIzaSyBExbceuED5PMbIG3jP8UllYqU7ns0xLjM",
   authDomain: "ziadlogin-88ae1.firebaseapp.com",
@@ -13,36 +13,38 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById("userEmail").textContent = "Logged in as " + user.email;
-    loadScores();
-  } else {
+// Check if user is logged in
+auth.onAuthStateChanged((user) => {
+  if (!user) {
     window.location.href = "index.html";
   }
 });
 
-function logout() {
-  auth.signOut();
+// Realtime score updates
+function listenForScores() {
+  db.collection("scores").doc("ziad").onSnapshot((doc) => {
+    document.getElementById("ziadScore").textContent = doc.exists ? doc.data().score : 0;
+  });
+
+  db.collection("scores").doc("hazem").onSnapshot((doc) => {
+    document.getElementById("hazemScore").textContent = doc.exists ? doc.data().score : 0;
+  });
 }
 
-function updateScore(team, amount) {
+// Update score
+function updateScore(team, change) {
   const ref = db.collection("scores").doc(team);
-  ref.get().then(doc => {
-    const current = doc.exists ? doc.data().points : 0;
-    ref.set({ points: current + amount });
+  ref.get().then((doc) => {
+    const current = doc.exists ? doc.data().score : 0;
+    ref.set({ score: current + change });
   });
 }
 
-function loadScores() {
-  const ziadRef = db.collection("scores").doc("ziad");
-  const hazemRef = db.collection("scores").doc("hazem");
-
-  ziadRef.onSnapshot(doc => {
-    document.getElementById("ziadScore").textContent = doc.exists ? doc.data().points : 0;
-  });
-
-  hazemRef.onSnapshot(doc => {
-    document.getElementById("hazemScore").textContent = doc.exists ? doc.data().points : 0;
+function signOut() {
+  auth.signOut().then(() => {
+    window.location.href = "index.html";
   });
 }
+
+// Start listeners
+listenForScores();
