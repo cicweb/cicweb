@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CICAwards™ Rules - Edition 2025</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #fbbc04;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .rules-hero {
+            padding: 60px 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .rules-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .rules-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text);
+        }
+        
+        .rules-section {
+            padding: 60px 0;
+            background-color: #f0f4f8;
+        }
+        
+        .rules-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .rules-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+        
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .rule-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .rule-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .rule-card h3 .rule-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .rule-card p {
+            margin-bottom: 15px;
+        }
+        
+        .selection-process {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .selection-process h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+        
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .process-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .process-card.member-vote {
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .process-card.admin-selection {
+            border-top: 4px solid var(--accent);
+        }
+        
+        .process-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .process-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .process-card ul {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .process-card li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+        
+        .disclaimer {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        
+        .disclaimer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .disclaimer h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background-color: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .rules-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .process-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">CIC<span>AWARDS</span>™</div>
+            <p class="subtitle">Edition 2025 - Official Rules & Guidelines</p>
+            <div class="nav-links">
+                <a href="https://ziadgo.uk/cicawards">Home</a>
+                <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Join Community</a>
+                <a href="https://forms.gle/BpEkj9V7uEsSSATv5">Admissions (Closed)</a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="rules-hero">
+        <div class="container">
+            <h1>CICAwards™ Official Rules</h1>
+            <p>To ensure fairness and transparency in our community recognition program, please review the following rules and guidelines for the CICAwards™ Edition 2025.</p>
+        </div>
+    </section>
+    
+    <section class="rules-section">
+        <div class="container">
+            <div class="rules-container">
+                <h2>Award Rules & Guidelines</h2>
+                
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <h3><span class="rule-number">1</span> One Award Per Member</h3>
+                        <p>No single member can receive more than one award in this edition of CICAwards™. This ensures fair recognition across our diverse community and allows more members to be celebrated.</p>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h3><span class="rule-number">2</span> Unique Award Recipients</h3>
+                        <p>Each award category can only be given to one member. Awards are not shared between multiple recipients to maintain the special recognition value of each category.</p>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h3><span class="rule-number">3</span> Selection Process</h3>
+                        <p>Awards will be selected through two methods: some by community member polls and others by Admin team selection based on contributions and impact within the community.</p>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h3><span class="rule-number">4</span> Fair Play Policy</h3>
+                        <p>Any attempts to manipulate voting or influence the selection process unfairly will result in immediate disqualification from award consideration.</p>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h3><span class="rule-number">5</span> Community Standards</h3>
+                        <p>All nominees must be in good standing with the community guidelines and have no recent violations of community rules to be eligible for awards.</p>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h3><span class="rule-number">6</span> Active Membership</h3>
+                        <p>To be eligible for awards, members must have been active participants in the WhatsApp community for at least 60 days prior to the award nominations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="selection-process">
+        <div class="container">
+            <h2>Award Selection Process</h2>
+            
+            <div class="process-container">
+                <div class="process-card member-vote">
+                    <div class="process-icon">🗳️</div>
+                    <h3>Member Voting</h3>
+                    <p>Selected award categories will be decided through community polls where all active members can cast their votes.</p>
+                    
+                    <ul>
+                        <li>Polls will be conducted in the WhatsApp community</li>
+                        <li>Each member gets one vote per category</li>
+                        <li>Voting period will be clearly announced</li>
+                        <li>Results will be transparently shared</li>
+                    </ul>
+                </div>
+                
+                <div class="process-card admin-selection">
+                    <div class="process-icon">⭐</div>
+                    <h3>Admin Selection</h3>
+                    <p>Certain awards will be chosen by the Admin team based on consistent contributions and positive impact.</p>
+                    
+                    <ul>
+                        <li>Based on objective contribution metrics</li>
+                        <li>Considers helpfulness and community spirit</li>
+                        <li>Evaluates quality and frequency of engagement</li>
+                        <li>Final decisions made by consensus</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="disclaimer">
+        <div class="container">
+            <div class="disclaimer-content">
+                <h2>Important Disclaimer</h2>
+                <p>The CICAwards™ are designed to celebrate and recognize our community members in a spirit of fun and appreciation. While we strive for fairness in our selection process, the final decisions rest with the community voters and Admin team.</p>
+                <p>All decisions are final, and the Admin team reserves the right to modify these rules if necessary to ensure the integrity of the awards process.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p>Be part of our vibrant WhatsApp community where we support each other, share knowledge, and celebrate achievements together.</p>
+            <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn">Join WhatsApp Community</a>
+            <a href="https://ziadgo.uk/cicawards" class="btn">Back to Home</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">CIC<span style="color: var(--accent);">AWARDS</span>™</div>
+                
+                <div class="footer-links">
+                    <a href="https://ziadgo.uk/cicawards">Home</a>
+                    <a href="https://ziadgo.uk/cicawards/rules">Rules</a>
+                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                    <a href="https://forms.gle/BpEkj9V7uEsSSATv5">Admissions</a>
+                </div>
+                
+                <p class="copyright">© 2025 CICAwards™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
