@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CICAwards™ Edition 2025 - Celebrating Our Community</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #34a853;
+            --accent: #fbbc04;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: var(--text);
+        }
+        
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        video {
+            width: 100%;
+            display: block;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.4);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(251, 188, 4, 0.3);
+        }
+        
+        .btn-accent:hover {
+            box-shadow: 0 6px 20px rgba(251, 188, 4, 0.4);
+        }
+        
+        .info-section {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .rules-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .rules-section h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+        
+        .rules-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .rule-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .rule-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">CIC<span>AWARDS</span>™</div>
+            <p class="subtitle">Edition 2025 - Celebrating Our Community</p>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Congratulations to Our Amazing Community Members!</h1>
+            <p>We're thrilled to celebrate the incredible contributions, dedication, and spirit of our WhatsApp community members. Join us in recognizing the outstanding individuals who make our community special.</p>
+            
+            <div class="video-container">
+                <video controls autoplay muted>
+                    <source src="https://raw.githubusercontent.com/cicweb/cicweb/refs/heads/main/output%20(1).mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn">Join Our WhatsApp Community</a>
+                <a href="https://forms.gle/BpEkj9V7uEsSSATv5" class="btn btn-secondary">View Admissions (Closed)</a>
+                <a href="https://ziadgo.uk/cicawards/rules" class="btn btn-accent">Award Rules</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Community Recognition</h3>
+                    <p>The CICAwards™ Edition 2025 is our way of celebrating the amazing individuals in our WhatsApp community who consistently contribute, support others, and make our community a vibrant place.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Award Categories</h3>
+                    <p>We have multiple award categories to recognize different types of contributions - from most helpful member to most creative content creator, and everything in between.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Voting Process</h3>
+                    <p>Some awards will be chosen through community polls where all members can vote, while others will be selected by our admin team based on consistent contributions and positive impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="rules-section">
+        <div class="container">
+            <h2>Award Rules & Guidelines</h2>
+            
+            <div class="rules-list">
+                <div class="rule-item">
+                    <h4>Rule #1: One Award Per Member</h4>
+                    <p>No member can receive more than one award in this edition of CICAwards™. This ensures fair recognition across our diverse community.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h4>Rule #2: Unique Award Recipients</h4>
+                    <p>Each award category can only be given to one member. Awards are not shared between multiple recipients.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h4>Rule #3: Selection Process</h4>
+                    <p>Some awards will be chosen by community members through polls, while others will be selected by the Admin team based on contributions and impact.</p>
+                </div>
+                
+                <div class="rule-item">
+                    <h4>Rule #4: Fair Play</h4>
+                    <p>Any attempts to manipulate voting or influence the selection process unfairly will result in disqualification.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://ziadgo.uk/cicawards/rules" class="btn">View Complete Rules</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">CIC<span style="color: var(--accent);">AWARDS</span>™</div>
+                
+                <div class="footer-links">
+                    <a href="https://ziadgo.uk/cicawards">Home</a>
+                    <a href="https://ziadgo.uk/cicawards/rules">Rules</a>
+                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                    <a href="https://forms.gle/BpEkj9V7uEsSSATv5">Admissions</a>
+                </div>
+                
+                <p class="copyright">© 2025 CICAwards™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
