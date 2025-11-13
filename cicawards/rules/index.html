@@ -4,27 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CICAwards™ Rules - Edition 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #1a73e8;
+            --primary-dark: #0d47a1;
             --secondary: #34a853;
+            --secondary-dark: #1b5e20;
             --accent: #fbbc04;
+            --accent-dark: #f57f17;
             --dark: #202124;
+            --dark-light: #3c4043;
             --light: #f8f9fa;
+            --light-gray: #e8eaed;
             --text: #333333;
+            --text-light: #5f6368;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             background-color: var(--light);
             color: var(--text);
             line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
         }
         
         .container {
@@ -33,87 +57,169 @@
             padding: 0 20px;
         }
         
+        /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 15px 0;
+            background: rgba(26, 115, 232, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            font-weight: 800;
             display: flex;
             align-items: center;
-            justify-content: center;
+            animation: fadeInDown 1s ease;
         }
         
         .logo span {
             color: var(--accent);
+            margin-left: 5px;
         }
         
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
+        .logo i {
+            margin-right: 10px;
+            font-size: 2.5rem;
         }
         
         .nav-links {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+            gap: 30px;
         }
         
         .nav-links a {
             color: white;
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: var(--transition);
         }
         
         .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--accent);
         }
         
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
         .rules-hero {
-            padding: 60px 0;
+            padding: 180px 0 100px;
             text-align: center;
-            background-color: white;
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.05), rgba(52, 168, 83, 0.05));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rules-hero:before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 115, 232, 0.1) 0%, rgba(26, 115, 232, 0) 70%);
+            top: 10%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .rules-hero:after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 188, 4, 0.1) 0%, rgba(251, 188, 4, 0) 70%);
+            bottom: 10%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite;
         }
         
         .rules-hero h1 {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
             color: var(--dark);
+            animation: fadeInUp 1s ease 0.2s both;
         }
         
         .rules-hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 800px;
-            margin: 0 auto 30px;
-            color: var(--text);
+            margin: 0 auto 40px;
+            color: var(--text-light);
+            animation: fadeInUp 1s ease 0.4s both;
         }
         
+        /* Rules Section */
         .rules-section {
-            padding: 60px 0;
-            background-color: #f0f4f8;
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
         }
         
         .rules-container {
             max-width: 900px;
             margin: 0 auto;
-        }
-        
-        .rules-section h2 {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            color: var(--dark);
         }
         
         .rules-grid {
@@ -124,52 +230,122 @@
         
         .rule-card {
             background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-            border-top: 4px solid var(--primary);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .rule-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
         }
         
         .rule-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rule-card:hover:before {
+            transform: scaleX(1);
+        }
+        
+        .rule-card .rule-number {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
         }
         
         .rule-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
+            color: var(--dark);
         }
         
-        .rule-card h3 .rule-number {
-            background-color: var(--primary);
+        /* Detailed Rules Section */
+        .detailed-rules {
+            padding: 100px 0;
+            background-color: #f0f4f8;
+        }
+        
+        .rules-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .rule-item {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rule-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rule-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .rule-icon {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            font-size: 0.9rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
         }
         
-        .rule-card p {
-            margin-bottom: 15px;
-        }
-        
-        .selection-process {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .selection-process h2 {
-            text-align: center;
-            font-size: 2.2rem;
-            margin-bottom: 50px;
+        .rule-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
             color: var(--dark);
+        }
+        
+        /* Selection Process Section */
+        .selection-process {
+            padding: 100px 0;
+            background-color: white;
         }
         
         .process-container {
@@ -183,10 +359,18 @@
             flex: 1;
             min-width: 300px;
             background-color: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 40px 30px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
         
         .process-card.member-vote {
@@ -198,8 +382,11 @@
         }
         
         .process-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .process-card h3 {
@@ -211,196 +398,520 @@
         .process-card ul {
             text-align: left;
             margin-top: 20px;
+            list-style: none;
         }
         
         .process-card li {
-            margin-bottom: 10px;
-            padding-left: 5px;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
         }
         
+        .process-card li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .process-card.admin-selection li:before {
+            color: var(--accent);
+        }
+        
+        /* Disclaimer Section */
         .disclaimer {
-            padding: 60px 0;
-            background-color: #f8f9fa;
-            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.05), rgba(52, 168, 83, 0.05));
         }
         
         .disclaimer-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 30px;
+            padding: 50px;
             background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid var(--accent);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .disclaimer-content:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .disclaimer-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
         }
         
         .disclaimer h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 20px;
             color: var(--dark);
         }
         
+        .disclaimer p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+        
+        /* CTA Section */
         .cta-section {
-            padding: 60px 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             text-align: center;
         }
         
         .cta-section h2 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
         
         .cta-section p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 700px;
             margin: 0 auto 30px;
             opacity: 0.9;
         }
         
         .btn {
-            display: inline-block;
-            padding: 14px 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
             background-color: white;
             color: var(--primary);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: var(--transition);
             box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
         }
         
-        footer {
-            background-color: var(--dark);
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
             color: white;
-            padding: 40px 0;
-            text-align: center;
+            box-shadow: 0 4px 15px rgba(52, 168, 83, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 25px rgba(52, 168, 83, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: white;
+            padding: 60px 0 30px;
         }
         
         .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
         
         .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 20px;
         }
         
-        .footer-links {
-            display: flex;
-            gap: 20px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            justify-content: center;
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-about p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3:after, .footer-contact h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
         }
         
         .footer-links a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s ease;
+            opacity: 0.8;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 0.9rem;
         }
         
         .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .footer-contact p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+        }
+        
+        .footer-contact i {
+            margin-right: 10px;
             color: var(--accent);
         }
         
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
         .copyright {
-            margin-top: 20px;
             opacity: 0.7;
             font-size: 0.9rem;
         }
         
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .rules-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .rules-hero {
+                padding: 150px 0 80px;
+            }
+            
             .rules-hero h1 {
                 font-size: 2.2rem;
             }
             
+            .rules-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
             .nav-links {
+                display: none;
                 flex-direction: column;
-                gap: 10px;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .nav-links.active {
+                display: flex;
             }
             
             .process-container {
                 flex-direction: column;
             }
+            
+            .rule-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .rule-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .rules-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .rule-card, .process-card {
+                padding: 30px 20px;
+            }
+            
+            .disclaimer-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
-            <div class="logo">CIC<span>AWARDS</span>™</div>
-            <p class="subtitle">Edition 2025 - Official Rules & Guidelines</p>
-            <div class="nav-links">
-                <a href="https://ziadgo.uk/cicawards">Home</a>
-                <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Join Community</a>
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-award"></i>CIC<span>AWARDS</span>™
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="nav-links" id="navLinks">
+                    <a href="https://ziadgo.uk/cicawards">Home</a>
+                    <a href="#rules">Rules</a>
+                    <a href="#selection">Selection Process</a>
+                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                </nav>
             </div>
         </div>
     </header>
     
     <section class="rules-hero">
         <div class="container">
-            <h1>CICAwards™ Official Rules</h1>
+            <h1>CICAwards™ Official Rules & Guidelines</h1>
             <p>To ensure fairness and transparency in our community recognition program, please review the following rules and guidelines for the CICAwards™ Edition 2025.</p>
         </div>
     </section>
     
-    <section class="rules-section">
+    <section class="rules-section" id="rules">
         <div class="container">
+            <h2 class="section-title">Award Rules Overview</h2>
+            
             <div class="rules-container">
-                <h2>Award Rules & Guidelines</h2>
-                
                 <div class="rules-grid">
-                    <div class="rule-card">
-                        <h3><span class="rule-number">1</span> One Award Per Member</h3>
-                        <p>No single member can receive more than one award in this edition of CICAwards™. This ensures fair recognition across our diverse community and allows more members to be celebrated.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">1</div>
+                        <h3>One Award Per Member</h3>
+                        <p>No single member can receive more than one award in this edition of CICAwards™.</p>
                     </div>
                     
-                    <div class="rule-card">
-                        <h3><span class="rule-number">2</span> Unique Award Recipients</h3>
-                        <p>Each award category can only be given to one member. Awards are not shared between multiple recipients to maintain the special recognition value of each category.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">2</div>
+                        <h3>Unique Award Recipients</h3>
+                        <p>Each award category can only be given to one member. Awards are not shared.</p>
                     </div>
                     
-                    <div class="rule-card">
-                        <h3><span class="rule-number">3</span> Selection Process</h3>
-                        <p>Awards will be selected through two methods: some by community member polls and others by Admin team selection based on contributions and impact within the community.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">3</div>
+                        <h3>Selection Process</h3>
+                        <p>Awards selected through community polls and Admin team selection.</p>
                     </div>
                     
-                    <div class="rule-card">
-                        <h3><span class="rule-number">4</span> Fair Play Policy</h3>
-                        <p>Any attempts to manipulate voting or influence the selection process unfairly will result in immediate disqualification from award consideration.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">4</div>
+                        <h3>Fair Play Policy</h3>
+                        <p>Any attempts to manipulate voting will result in disqualification.</p>
                     </div>
                     
-                    <div class="rule-card">
-                        <h3><span class="rule-number">5</span> Community Standards</h3>
-                        <p>All nominees must be in good standing with the community guidelines and have no recent violations of community rules to be eligible for awards.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">5</div>
+                        <h3>Community Standards</h3>
+                        <p>Nominees must be in good standing with community guidelines.</p>
                     </div>
                     
-                    <div class="rule-card">
-                        <h3><span class="rule-number">6</span> Active Membership</h3>
-                        <p>To be eligible for awards, members must have been active participants in the WhatsApp community for at least 60 days prior to the award nominations.</p>
+                    <div class="rule-card fade-in">
+                        <div class="rule-number">6</div>
+                        <h3>Active Membership</h3>
+                        <p>Members must be active for at least 60 days to be eligible.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="selection-process">
+    <section class="detailed-rules">
         <div class="container">
-            <h2>Award Selection Process</h2>
+            <h2 class="section-title">Detailed Rules & Guidelines</h2>
+            
+            <div class="rules-list">
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>One Award Per Member</h4>
+                        <p>No single member can receive more than one award in this edition of CICAwards™. This ensures fair recognition across our diverse community and allows more members to be celebrated for their unique contributions.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Unique Award Recipients</h4>
+                        <p>Each award category can only be given to one member. Awards are not shared between multiple recipients to maintain the special recognition value of each category and ensure that every award winner receives exclusive recognition.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Selection Process</h4>
+                        <p>Awards will be selected through two methods: some by community member polls and others by Admin team selection based on contributions and impact within the community. The selection method for each category will be clearly communicated.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Fair Play Policy</h4>
+                        <p>Any attempts to manipulate voting or influence the selection process unfairly will result in immediate disqualification from award consideration. This includes but is not limited to vote manipulation, fake accounts, or any form of cheating.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Community Standards</h4>
+                        <p>All nominees must be in good standing with the community guidelines and have no recent violations of community rules to be eligible for awards. Members with disciplinary actions within the last 90 days will not be considered.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Active Membership</h4>
+                        <p>To be eligible for awards, members must have been active participants in the WhatsApp community for at least 60 days prior to the award nominations. Activity is measured by regular participation and positive engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="selection-process" id="selection">
+        <div class="container">
+            <h2 class="section-title">Award Selection Process</h2>
             
             <div class="process-container">
-                <div class="process-card member-vote">
+                <div class="process-card member-vote fade-in">
                     <div class="process-icon">🗳️</div>
                     <h3>Member Voting</h3>
                     <p>Selected award categories will be decided through community polls where all active members can cast their votes.</p>
@@ -410,10 +921,12 @@
                         <li>Each member gets one vote per category</li>
                         <li>Voting period will be clearly announced</li>
                         <li>Results will be transparently shared</li>
+                        <li>All votes are anonymous and confidential</li>
+                        <li>Voting guidelines will be provided</li>
                     </ul>
                 </div>
                 
-                <div class="process-card admin-selection">
+                <div class="process-card admin-selection fade-in">
                     <div class="process-icon">⭐</div>
                     <h3>Admin Selection</h3>
                     <p>Certain awards will be chosen by the Admin team based on consistent contributions and positive impact.</p>
@@ -423,6 +936,8 @@
                         <li>Considers helpfulness and community spirit</li>
                         <li>Evaluates quality and frequency of engagement</li>
                         <li>Final decisions made by consensus</li>
+                        <li>Multiple admins review each nomination</li>
+                        <li>Selection criteria will be transparent</li>
                     </ul>
                 </div>
             </div>
@@ -431,10 +946,13 @@
     
     <section class="disclaimer">
         <div class="container">
-            <div class="disclaimer-content">
+            <div class="disclaimer-content fade-in">
+                <div class="disclaimer-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
                 <h2>Important Disclaimer</h2>
                 <p>The CICAwards™ are designed to celebrate and recognize our community members in a spirit of fun and appreciation. While we strive for fairness in our selection process, the final decisions rest with the community voters and Admin team.</p>
-                <p>All decisions are final, and the Admin team reserves the right to modify these rules if necessary to ensure the integrity of the awards process.</p>
+                <p>All decisions are final, and the Admin team reserves the right to modify these rules if necessary to ensure the integrity of the awards process. The primary goal is to foster a positive and encouraging community environment.</p>
             </div>
         </div>
     </section>
@@ -443,25 +961,109 @@
         <div class="container">
             <h2>Join Our Community</h2>
             <p>Be part of our vibrant WhatsApp community where we support each other, share knowledge, and celebrate achievements together.</p>
-            <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn">Join WhatsApp Community</a>
-            <a href="https://ziadgo.uk/cicawards" class="btn">Back to Home</a>
+            <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn btn-secondary">
+                <i class="fab fa-whatsapp"></i> Join WhatsApp Community
+            </a>
+            <a href="https://ziadgo.uk/cicawards" class="btn">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
         </div>
     </section>
     
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">CIC<span style="color: var(--accent);">AWARDS</span>™</div>
-                
-                <div class="footer-links">
-                    <a href="https://ziadgo.uk/cicawards">Home</a>
-                    <a href="https://ziadgo.uk/cicawards/rules">Rules</a>
-                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                <div class="footer-about">
+                    <div class="footer-logo">CIC<span>AWARDS</span>™</div>
+                    <p>Celebrating excellence and community spirit in our WhatsApp community. Join us in recognizing the outstanding contributions of our members.</p>
+                    <div class="cta-buttons">
+                        <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn btn-secondary">
+                            <i class="fab fa-whatsapp"></i> Join Community
+                        </a>
+                    </div>
                 </div>
                 
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="https://ziadgo.uk/cicawards"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#rules"><i class="fas fa-chevron-right"></i> Rules Overview</a></li>
+                        <li><a href="#selection"><i class="fas fa-chevron-right"></i> Selection Process</a></li>
+                        <li><a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt"><i class="fas fa-chevron-right"></i> Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-users"></i> WhatsApp Community</p>
+                    <p><i class="fas fa-globe"></i> ziadgo.uk/cicawards</p>
+                    <p><i class="fas fa-calendar-alt"></i> Edition 2025</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
                 <p class="copyright">© 2025 CICAwards™. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Initial check in case elements are already in view
+        fadeInOnScroll();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
-                                                                              </html>
+</html>
