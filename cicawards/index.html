@@ -743,4 +743,419 @@
             
             .countdown-unit {
                 min-width: 90px;
+                padding: 20px 10px;
+            }
+            
+            .countdown-value {
+                font-size: 2.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+        }
         
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-timer {
+                gap: 10px;
+            }
+            
+            .countdown-unit {
+                min-width: 70px;
+                padding: 15px 5px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+            
+            .info-card {
+                padding: 30px 20px;
+            }
+            
+            .rule-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .rule-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-award"></i>CIC<span>AWARDS</span>™
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#rules">Rules</a>
+                    <a href="#countdown">Countdown</a>
+                    <a href="https://ziadgo.uk/cicawards/rules">Full Rules</a>
+                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Celebrating Our Amazing Community Members!</h1>
+            <p>We're thrilled to honor the incredible contributions, dedication, and spirit of our WhatsApp community. Join us in recognizing the outstanding individuals who make our community special.</p>
+        </div>
+    </section>
+    
+    <section class="countdown-section" id="countdown">
+        <div class="container">
+            <div class="countdown-container">
+                <h2 class="countdown-title">Countdown to CICAwards™ 2025</h2>
+                <p class="countdown-subtitle">December 20, 2025 at 18:00 (Germany Time)</p>
+                
+                <div class="countdown-timer" id="countdownTimer">
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="days">00</div>
+                        <div class="countdown-label">Days</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="hours">00</div>
+                        <div class="countdown-label">Hours</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="minutes">00</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    <div class="countdown-unit">
+                        <div class="countdown-value" id="seconds">00</div>
+                        <div class="countdown-label">Seconds</div>
+                    </div>
+                </div>
+                
+                <div class="time-format-toggle">
+                    <span class="time-format-text">Time Format:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="timeFormatToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <div class="toggle-labels">
+                        <span id="label12h">12h</span>
+                        <span id="label24h">24h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="video-container">
+                <video controls autoplay muted>
+                    <source src="https://raw.githubusercontent.com/cicweb/cicweb/refs/heads/main/output%20(1).mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn">
+                    <i class="fab fa-whatsapp"></i> Join Our Community
+                </a>
+                <a href="https://ziadgo.uk/cicawards/rules" class="btn btn-accent">
+                    <i class="fas fa-scroll"></i> View Award Rules
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="info-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About CICAwards™ 2025</h2>
+            <div class="info-grid">
+                <div class="info-card fade-in">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Recognition</h3>
+                    <p>The CICAwards™ Edition 2025 celebrates the amazing individuals in our WhatsApp community who consistently contribute, support others, and create a vibrant environment.</p>
+                </div>
+                
+                <div class="info-card fade-in">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Award Categories</h3>
+                    <p>We have multiple award categories to recognize different contributions - from most helpful member to most creative content creator, and everything in between.</p>
+                </div>
+                
+                <div class="info-card fade-in">
+                    <i class="fas fa-vote-yea"></i>
+                    <h3>Voting Process</h3>
+                    <p>Some awards will be chosen through community polls where all members can vote, while others will be selected by our admin team based on consistent contributions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="rules-section" id="rules">
+        <div class="container">
+            <h2 class="section-title">Award Rules & Guidelines</h2>
+            
+            <div class="rules-list">
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>One Award Per Member</h4>
+                        <p>No member can receive more than one award in this edition of CICAwards™. This ensures fair recognition across our diverse community.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Unique Award Recipients</h4>
+                        <p>Each award category can only be given to one member. Awards are not shared between multiple recipients to maintain the special recognition value.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Selection Process</h4>
+                        <p>Some awards will be chosen by community members through polls, while others will be selected by the Admin team based on contributions and impact.</p>
+                    </div>
+                </div>
+                
+                <div class="rule-item fade-in">
+                    <div class="rule-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="rule-content">
+                        <h4>Fair Play Policy</h4>
+                        <p>Any attempts to manipulate voting or influence the selection process unfairly will result in disqualification from award consideration.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rules-cta">
+                <a href="https://ziadgo.uk/cicawards/rules" class="btn btn-accent">
+                    <i class="fas fa-external-link-alt"></i> View Complete Rules
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">CIC<span>AWARDS</span>™</div>
+                    <p>Celebrating excellence and community spirit in our WhatsApp community. Join us in recognizing the outstanding contributions of our members.</p>
+                    <div class="cta-buttons">
+                        <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn btn-secondary">
+                            <i class="fab fa-whatsapp"></i> Join Community
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                        <li><a href="#rules"><i class="fas fa-chevron-right"></i> Rules</a></li>
+                        <li><a href="#countdown"><i class="fas fa-chevron-right"></i> Countdown</a></li>
+                        <li><a href="https://ziadgo.uk/cicawards/rules"><i class="fas fa-chevron-right"></i> Full Rules</a></li>
+                        <li><a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt"><i class="fas fa-chevron-right"></i> Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-users"></i> WhatsApp Community</p>
+                    <p><i class="fas fa-globe"></i> ziadgo.uk/cicawards</p>
+                    <p><i class="fas fa-calendar-alt"></i> Edition 2025</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 CICAwards™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Scroll animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        // Initial check in case elements are already in view
+        fadeInOnScroll();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Countdown Timer
+        const countdownDate = new Date('December 20, 2025 18:00:00').getTime();
+        let timeFormat24h = true; // Default to 24-hour format
+        
+        // Format time based on toggle
+        function formatTime(hours) {
+            if (timeFormat24h) {
+                return hours.toString().padStart(2, '0');
+            } else {
+                // Convert to 12-hour format
+                const hour12 = hours % 12 || 12;
+                return hour12.toString().padStart(2, '0');
+            }
+        }
+        
+        // Update countdown
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            // If countdown is over
+            if (distance < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+            
+            // Calculate time units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Update display
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = formatTime(hours);
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }
+        
+        // Time format toggle
+        const timeFormatToggle = document.getElementById('timeFormatToggle');
+        const label12h = document.getElementById('label12h');
+        const label24h = document.getElementById('label24h');
+        
+        timeFormatToggle.addEventListener('change', function() {
+            timeFormat24h = !this.checked;
+            
+            // Update label styling
+            if (timeFormat24h) {
+                label12h.classList.remove('active');
+                label24h.classList.add('active');
+            } else {
+                label12h.classList.add('active');
+                label24h.classList.remove('active');
+            }
+            
+            // Update countdown display
+            updateCountdown();
+        });
+        
+        // Initialize toggle state
+        label24h.classList.add('active');
+        
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
