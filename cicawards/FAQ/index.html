@@ -741,4 +741,341 @@
             .guide-links {
                 flex-direction: column;
                 align-items: center;
+            }
             
+            .guide-link {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .faq-question h3 {
+                font-size: 1.2rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .faq-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .guide-title {
+                font-size: 1.8rem;
+            }
+            
+            .faq-question {
+                padding: 20px;
+            }
+            
+            .faq-answer.active {
+                padding: 20px;
+            }
+            
+            .team-card {
+                padding: 25px 20px;
+            }
+            
+            .disclaimer-content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-award"></i>CIC<span>AWARDS</span>™
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="nav-links" id="navLinks">
+                    <a href="https://ziadgo.uk/cicawards">Home</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#team">Our Team</a>
+                    <a href="https://ziadgo.uk/cicawards/rules">Rules</a>
+                    <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="faq-hero" id="home">
+        <div class="container">
+            <h1>Guide to CICAwards™ 2025</h1>
+            <p>Find answers to the most frequently asked questions about the CICAwards™ 2025. Everything you need to know about voting, eligibility, awards, and more.</p>
+        </div>
+    </section>
+    
+    <section class="guide-info">
+        <div class="container">
+            <div class="guide-container">
+                <h2 class="guide-title">CICAwards™ 2025</h2>
+                <p class="guide-subtitle">Official Guidelines and Resources</p>
+                
+                <div class="guide-links">
+                    <a href="https://ziadgo.uk/cicawards/rules" class="guide-link">
+                        <i class="fas fa-scroll"></i>
+                        <span>Official Guidelines</span>
+                    </a>
+                    <a href="https://ziadgo.uk/cicawards" class="guide-link">
+                        <i class="fas fa-globe"></i>
+                        <span>Official Website</span>
+                    </a>
+                </div>
+                
+                <p>ziadgo.uk/cicawards/rules<br>or ziadgo.uk/cicawards/rules.html</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
+                        <h3><span class="q-number">Q1</span> When is CICAwards™?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer" id="answer1">
+                        <p><strong>A1:</strong> The CICAwards™ 2025 ceremony will take place on December 20th, 2025 at 18:00 (Germany Time).</p>
+                        <p>You can check the countdown on our official website: <a href="https://ziadgo.uk/cicawards" style="color: var(--primary); text-decoration: none; font-weight: 600;">ziadgo.uk/cicawards</a></p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
+                        <h3><span class="q-number">Q2</span> Can I use another number to vote for my favorite member/admin?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer" id="answer2">
+                        <p><strong>A2:</strong> No, you cannot use another number to vote for your favorite member or admin. This is strictly against the guidelines.</p>
+                        <p>If you are caught using multiple numbers to vote:</p>
+                        <ul>
+                            <li>You will be immediately disqualified from voting</li>
+                            <li>You will receive an official warning</li>
+                            <li>Depending on your number of previous warnings, you may be banned from the community</li>
+                        </ul>
+                        <p>We maintain fair voting practices to ensure the integrity of the awards.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(3)">
+                        <h3><span class="q-number">Q3</span> Why am I not on the best member poll?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer" id="answer3">
+                        <p><strong>A3:</strong> There are specific criteria for being included in the best member poll:</p>
+                        <ol>
+                            <li><strong>Activity Requirement:</strong> You must have been active in the community for the last 60 days prior to the awards</li>
+                            <li><strong>Engagement Level:</strong> You might not have sent enough messages or interacted sufficiently with other members</li>
+                        </ol>
+                        <p>We evaluate both the duration of activity and the quality/quantity of engagement when selecting members for polls.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(4)">
+                        <h3><span class="q-number">Q4</span> Will I get an award?</h3>
+                        <div class="faq-toggle">+</div>
+                    </div>
+                    <div class="faq-answer" id="answer4">
+                        <p><strong>A4:</strong> Award selection depends on several factors:</p>
+                        <ol>
+                            <li><strong>Admin Selection:</strong> Some awards are chosen by the admin team based on contributions and community impact</li>
+                            <li><strong>Community Polls:</strong> Other awards are determined by community voting</li>
+                        </ol>
+                        <p>We cannot disclose any award winners before the ceremony. The entire purpose of hosting CICAwards™ is to announce the awards during the event. We maintain confidentiality to ensure excitement and fairness for all participants.</p>
+                        <p>This approach is standard practice for any awards ceremony to maintain integrity and surprise.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="team-section" id="team">
+        <div class="container">
+            <h2 class="section-title">Meet The CICAwards™ Team</h2>
+            <p class="section-subtitle" style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: var(--text-light); font-size: 1.2rem;">
+                The dedicated individuals behind the planning and execution of CICAwards™ 2025
+            </p>
+            
+            <div class="team-container">
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Conner</h3>
+                        <div class="team-role">Event Hoster</div>
+                        <p class="team-description">Responsible for hosting and coordinating the CICAwards™ 2025 event, ensuring everything runs smoothly.</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-icon">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <h3>Ziad</h3>
+                        <div class="team-role">Event Owner & Website Developer</div>
+                        <p class="team-description">Owner of CICAwards™, responsible for website design, coding, hosting, and overall project management.</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>MD/Hanzala</h3>
+                        <div class="team-role">Project Approver & Supporter</div>
+                        <p class="team-description">CIC Head Admin who provides project approval, support, and guidance for the CICAwards™ initiative.</p>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Simon Podzerka</h3>
+                        <div class="team-role">Owner of CIC</div>
+                        <p class="team-description">Founder and owner of the CIC community, providing the foundation for CICAwards™ to exist and thrive.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="disclaimer-section">
+        <div class="container">
+            <div class="disclaimer-content">
+                <h2 style="margin-bottom: 25px; color: var(--dark);">Important Information</h2>
+                <p><strong>CICAwards™ Official Guide.</strong> Don't forget to follow community rules. These also apply when CICAwards™ come and they can influence the awards depending on how many rules you have broken.</p>
+                
+                <div class="disclaimer-note">
+                    <p><em>This guide was written by Ziad, an official CICAwards representative and owner.</em></p>
+                    <p><em>Some parts such as the website rules may be written by @Conner.</em></p>
+                    <p><em>Website was made by @Ziad. Copyright CIC, CICAwards 2025 ©</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p>Be part of our vibrant WhatsApp community where we support each other, share knowledge, and celebrate achievements together.</p>
+            <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn btn-secondary">
+                <i class="fab fa-whatsapp"></i> Join WhatsApp Community
+            </a>
+            <a href="https://ziadgo.uk/cicawards" class="btn">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">CIC<span>AWARDS</span>™</div>
+                    <p>Your comprehensive guide to CICAwards™ 2025. Find answers to all your questions about the awards process, eligibility, and voting.</p>
+                    <div class="cta-buttons">
+                        <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn btn-secondary">
+                            <i class="fab fa-whatsapp"></i> Join Community
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="https://ziadgo.uk/cicawards"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
+                        <li><a href="#team"><i class="fas fa-chevron-right"></i> Our Team</a></li>
+                        <li><a href="https://ziadgo.uk/cicawards/rules"><i class="fas fa-chevron-right"></i> Rules</a></li>
+                        <li><a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt"><i class="fas fa-chevron-right"></i> Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-users"></i> WhatsApp Community</p>
+                    <p><i class="fas fa-globe"></i> ziadgo.uk/cicawards</p>
+                    <p><i class="fas fa-calendar-alt"></i> Edition 2025</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 CICAwards™. All rights reserved.</p>
+                <p class="copyright-note">Website designed and developed by Ziad. Event hosted by the CICAwards™ team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // FAQ Toggle Functionality
+        function toggleFAQ(faqNumber) {
+            const answer = document.getElementById('answer' + faqNumber);
+            const toggle = answer.previousElementSibling.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.textContent = '+';
+            } else {
+                // Close any open FAQ first
+                document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                    openAnswer.classList.remove('active');
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                });
+                
+                answer.classList.add('active');
+                toggle.textContent = '−';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
