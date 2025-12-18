@@ -102,7 +102,7 @@
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 25px;
         }
         
         .nav-links a {
@@ -210,9 +210,19 @@
         }
         
         .countdown-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 40px;
             opacity: 0.9;
+        }
+        
+        .timezone-info {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .countdown-timer {
@@ -252,81 +262,6 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             opacity: 0.9;
-        }
-        
-        .time-format-toggle {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .time-format-text {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 34px;
-            transition: var(--transition);
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-        
-        input:checked + .toggle-slider {
-            background-color: var(--accent);
-        }
-        
-        input:checked + .toggle-slider:before {
-            transform: translateX(30px);
-        }
-        
-        .toggle-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-            font-size: 0.8rem;
-            color: white;
-        }
-        
-        .toggle-labels span {
-            opacity: 0.7;
-        }
-        
-        .toggle-labels .active {
-            opacity: 1;
-            font-weight: 600;
         }
         
         .video-container {
@@ -837,6 +772,7 @@
                     <a href="#about">About</a>
                     <a href="#rules">Rules</a>
                     <a href="#countdown">Countdown</a>
+                    <a href="https://ziadgo.uk/cicawards/faq">FAQ</a>
                     <a href="https://ziadgo.uk/cicawards/rules">Full Rules</a>
                     <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt">Community</a>
                 </nav>
@@ -855,7 +791,8 @@
         <div class="container">
             <div class="countdown-container">
                 <h2 class="countdown-title">Countdown to CICAwards™ 2025</h2>
-                <p class="countdown-subtitle">December 20, 2025 at 18:00 (Germany Time)</p>
+                <p class="countdown-subtitle">December 20, 2025 at 18:00<br>
+                <span class="timezone-info">Central European Time (CET) / GMT+1</span></p>
                 
                 <div class="countdown-timer" id="countdownTimer">
                     <div class="countdown-unit">
@@ -875,18 +812,6 @@
                         <div class="countdown-label">Seconds</div>
                     </div>
                 </div>
-                
-                <div class="time-format-toggle">
-                    <span class="time-format-text">Time Format:</span>
-                    <label class="toggle-switch">
-                        <input type="checkbox" id="timeFormatToggle">
-                        <span class="toggle-slider"></span>
-                    </label>
-                    <div class="toggle-labels">
-                        <span id="label12h">12h</span>
-                        <span id="label24h">24h</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -903,6 +828,9 @@
             <div class="cta-buttons">
                 <a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt" class="btn">
                     <i class="fab fa-whatsapp"></i> Join Our Community
+                </a>
+                <a href="https://ziadgo.uk/cicawards/faq" class="btn btn-accent">
+                    <i class="fas fa-question-circle"></i> View FAQ
                 </a>
                 <a href="https://ziadgo.uk/cicawards/rules" class="btn btn-accent">
                     <i class="fas fa-scroll"></i> View Award Rules
@@ -1010,6 +938,7 @@
                         <li><a href="#about"><i class="fas fa-chevron-right"></i> About</a></li>
                         <li><a href="#rules"><i class="fas fa-chevron-right"></i> Rules</a></li>
                         <li><a href="#countdown"><i class="fas fa-chevron-right"></i> Countdown</a></li>
+                        <li><a href="https://ziadgo.uk/cicawards/faq"><i class="fas fa-chevron-right"></i> FAQ</a></li>
                         <li><a href="https://ziadgo.uk/cicawards/rules"><i class="fas fa-chevron-right"></i> Full Rules</a></li>
                         <li><a href="https://chat.whatsapp.com/IriRIjLL5TIK4Xy0f9PV2q?mode=wwt"><i class="fas fa-chevron-right"></i> Community</a></li>
                     </ul>
@@ -1088,19 +1017,7 @@
         });
 
         // Countdown Timer
-        const countdownDate = new Date('December 20, 2025 18:00:00').getTime();
-        let timeFormat24h = true; // Default to 24-hour format
-        
-        // Format time based on toggle
-        function formatTime(hours) {
-            if (timeFormat24h) {
-                return hours.toString().padStart(2, '0');
-            } else {
-                // Convert to 12-hour format
-                const hour12 = hours % 12 || 12;
-                return hour12.toString().padStart(2, '0');
-            }
-        }
+        const countdownDate = new Date('December 20, 2025 18:00:00 GMT+0100').getTime();
         
         // Update countdown
         function updateCountdown() {
@@ -1124,34 +1041,10 @@
             
             // Update display
             document.getElementById('days').innerText = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = formatTime(hours);
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
             document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
             document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
         }
-        
-        // Time format toggle
-        const timeFormatToggle = document.getElementById('timeFormatToggle');
-        const label12h = document.getElementById('label12h');
-        const label24h = document.getElementById('label24h');
-        
-        timeFormatToggle.addEventListener('change', function() {
-            timeFormat24h = !this.checked;
-            
-            // Update label styling
-            if (timeFormat24h) {
-                label12h.classList.remove('active');
-                label24h.classList.add('active');
-            } else {
-                label12h.classList.add('active');
-                label24h.classList.remove('active');
-            }
-            
-            // Update countdown display
-            updateCountdown();
-        });
-        
-        // Initialize toggle state
-        label24h.classList.add('active');
         
         // Update countdown every second
         updateCountdown();
