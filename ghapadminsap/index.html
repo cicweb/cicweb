@@ -657,6 +657,52 @@
             gap: 15px;
         }
         
+        /* Firebase Status */
+        .firebase-status {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            opacity: 0.9;
+        }
+        
+        .firebase-status.connected {
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .firebase-status.disconnected {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .status-indicator.connected {
+            background-color: var(--secondary);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-indicator.disconnected {
+            background-color: var(--danger);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
         /* Responsive Styles */
         @media (max-width: 768px) {
             .login-container {
@@ -691,6 +737,13 @@
             .modal {
                 width: 95%;
                 margin: 10px;
+            }
+            
+            .firebase-status {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                justify-content: center;
             }
         }
         
@@ -727,6 +780,12 @@
     </style>
 </head>
 <body>
+    <!-- Firebase Status Indicator -->
+    <div class="firebase-status" id="firebaseStatus">
+        <div class="status-indicator"></div>
+        <span>Connecting to database...</span>
+    </div>
+    
     <!-- Login Page -->
     <div class="login-page" id="loginPage">
         <div class="login-container">
@@ -744,7 +803,7 @@
                 </div>
                 
                 <div class="form-group">
-<label for="password">Password</label>
+                    <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" placeholder="Enter password" required>
                     <div class="error-message" id="passwordError"></div>
                 </div>
@@ -1017,7 +1076,223 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDQ87CXKPGQZAbv3pM9UyzQMhwV8j3RZLA",
+            authDomain: "c-iccommunity.firebaseapp.com",
+            projectId: "c-iccommunity",
+            storageBucket: "c-iccommunity.firebasestorage.app",
+            messagingSenderId: "410829133438",
+            appId: "1:410829133438:web:d4c950f12ec583715aea2f",
+            measurementId: "G-KXEWN3BLG0"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        // Make Firebase available globally
+        window.firebaseApp = app;
+        window.firebaseDb = db;
+        window.firebaseMethods = {
+            collection,
+            doc,
+            setDoc,
+            getDoc,
+            getDocs,
+            updateDoc,
+            deleteDoc,
+            onSnapshot,
+            query,
+            orderBy,
+            serverTimestamp,
+            addDoc
+        };
+        
+        console.log('Firebase initialized successfully');
+    </script>
+
     <script>
+        // Firebase variables
+        let db;
+        let membersCollection;
+        let warningsCollection;
+        let bansCollection;
+        
+        // Firebase initialization check
+        function initializeFirebase() {
+            if (window.firebaseDb && window.firebaseMethods) {
+                db = window.firebaseDb;
+                membersCollection = window.firebaseMethods.collection(db, 'members');
+                warningsCollection = window.firebaseMethods.collection(db, 'warnings');
+                bansCollection = window.firebaseMethods.collection(db, 'bans');
+                
+                updateFirebaseStatus('connected');
+                console.log('Firebase Firestore initialized');
+                
+                // If admin is logged in, setup real-time listeners
+                if (currentAdmin) {
+                    setupRealtimeListeners();
+                }
+                
+                return true;
+            } else {
+                console.log('Waiting for Firebase to initialize...');
+                setTimeout(initializeFirebase, 500);
+                return false;
+            }
+        }
+        
+        // Update Firebase connection status
+        function updateFirebaseStatus(status) {
+            const statusEl = document.getElementById('firebaseStatus');
+            const indicator = statusEl.querySelector('.status-indicator');
+            
+            if (status === 'connected') {
+                statusEl.classList.add('connected');
+                statusEl.classList.remove('disconnected');
+                indicator.classList.add('connected');
+                indicator.classList.remove('disconnected');
+                statusEl.querySelector('span').textContent = 'Database connected';
+            } else {
+                statusEl.classList.add('disconnected');
+                statusEl.classList.remove('connected');
+                indicator.classList.add('disconnected');
+                indicator.classList.remove('connected');
+                statusEl.querySelector('span').textContent = 'Database disconnected';
+            }
+        }
+        
+        // Setup real-time listeners
+        function setupRealtimeListeners() {
+            // Members listener
+            const membersQuery = window.firebaseMethods.query(membersCollection, window.firebaseMethods.orderBy('joinDate', 'desc'));
+            window.firebaseMethods.onSnapshot(membersQuery, (snapshot) => {
+                members = [];
+                snapshot.forEach((doc) => {
+                    members.push({ id: doc.id, ...doc.data() });
+                });
+                updateStats();
+                updateMembersTable();
+                console.log('Members updated in real-time');
+            });
+            
+            // Warnings listener
+            const warningsQuery = window.firebaseMethods.query(warningsCollection, window.firebaseMethods.orderBy('date', 'desc'));
+            window.firebaseMethods.onSnapshot(warningsQuery, (snapshot) => {
+                warnings = [];
+                snapshot.forEach((doc) => {
+                    warnings.push({ id: doc.id, ...doc.data() });
+                });
+                updateWarningsTable();
+                console.log('Warnings updated in real-time');
+            });
+            
+            // Bans listener
+            const bansQuery = window.firebaseMethods.query(bansCollection, window.firebaseMethods.orderBy('date', 'desc'));
+            window.firebaseMethods.onSnapshot(bansQuery, (snapshot) => {
+                bans = [];
+                snapshot.forEach((doc) => {
+                    bans.push({ id: doc.id, ...doc.data() });
+                });
+                updateBansTable();
+                console.log('Bans updated in real-time');
+            });
+        }
+        
+        // Save data to Firebase
+        async function saveData() {
+            // Stats are updated automatically by listeners
+            updateStats();
+        }
+        
+        // Load initial data from Firebase
+        async function loadData() {
+            try {
+                // Load members
+                const membersSnapshot = await window.firebaseMethods.getDocs(membersCollection);
+                members = [];
+                membersSnapshot.forEach((doc) => {
+                    members.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Load warnings
+                const warningsSnapshot = await window.firebaseMethods.getDocs(warningsCollection);
+                warnings = [];
+                warningsSnapshot.forEach((doc) => {
+                    warnings.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Load bans
+                const bansSnapshot = await window.firebaseMethods.getDocs(bansCollection);
+                bans = [];
+                bansSnapshot.forEach((doc) => {
+                    bans.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // If no members exist, create sample data
+                if (members.length === 0) {
+                    await initializeSampleData();
+                }
+                
+                updateStats();
+                updateTables();
+                console.log('Data loaded from Firebase');
+            } catch (error) {
+                console.error('Error loading data:', error);
+                updateFirebaseStatus('disconnected');
+            }
+        }
+        
+        // Initialize sample data in Firebase
+        async function initializeSampleData() {
+            try {
+                const sampleMembers = [
+                    {
+                        name: "Rares",
+                        phone: "+1234567890",
+                        whatsapp: "https://chat.whatsapp.com/example1",
+                        joinDate: "2024-01-15",
+                        status: "active",
+                        warnings: 0
+                    },
+                    {
+                        name: "Conner",
+                        phone: "+1234567891",
+                        whatsapp: "https://chat.whatsapp.com/example2",
+                        joinDate: "2024-02-20",
+                        status: "active",
+                        warnings: 0
+                    },
+                    {
+                        name: "Ramester",
+                        phone: "+1234567892",
+                        whatsapp: "https://chat.whatsapp.com/example3",
+                        joinDate: "2024-03-10",
+                        status: "warned",
+                        warnings: 1
+                    }
+                ];
+                
+                // Add sample members to Firebase
+                for (const member of sampleMembers) {
+                    await window.firebaseMethods.addDoc(membersCollection, member);
+                }
+                
+                console.log('Sample data initialized in Firebase');
+            } catch (error) {
+                console.error('Error initializing sample data:', error);
+            }
+        }
+
         // Admin credentials
         const adminCredentials = {
             'Conner': { password: 'Conner@2025', fullName: 'Conner' },
@@ -1064,27 +1339,30 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if admin is already logged in (from localStorage)
+            // Start Firebase initialization
+            initializeFirebase();
+            
+            // Check if admin is already logged in
             const savedAdmin = localStorage.getItem('cicawards_admin');
             if (savedAdmin) {
                 try {
                     currentAdmin = JSON.parse(savedAdmin);
                     if (adminCredentials[currentAdmin.username]) {
                         showDashboard();
-                        loadData();
+                        // Wait for Firebase to initialize, then load data
+                        const checkFirebase = setInterval(() => {
+                            if (db) {
+                                clearInterval(checkFirebase);
+                                loadData();
+                                setupRealtimeListeners();
+                            }
+                        }, 100);
                     } else {
                         localStorage.removeItem('cicawards_admin');
                     }
                 } catch (e) {
                     localStorage.removeItem('cicawards_admin');
                 }
-            }
-
-            // Load sample data if no data exists
-            if (localStorage.getItem('cicawards_members') === null) {
-                initializeSampleData();
-            } else {
-                loadData();
             }
 
             // Event Listeners
@@ -1133,9 +1411,6 @@
             document.getElementById('saveMemberBtn').addEventListener('click', addNewMember);
             document.getElementById('issueWarningBtn').addEventListener('click', issueWarning);
             document.getElementById('issueBanBtn').addEventListener('click', issueBan);
-            
-            // Initialize tables
-            updateTables();
         });
 
         // Functions
@@ -1173,7 +1448,12 @@
             
             // Show dashboard
             showDashboard();
-            loadData();
+            
+            // Initialize Firebase and load data
+            if (initializeFirebase()) {
+                loadData();
+                setupRealtimeListeners();
+            }
         }
 
         function handleLogout() {
@@ -1198,69 +1478,6 @@
         function showLogin() {
             loginPage.style.display = 'flex';
             dashboard.style.display = 'none';
-        }
-
-        function initializeSampleData() {
-            // Create initial members array
-            members = [
-                {
-                    id: 1,
-                    name: "Rares",
-                    phone: "+1234567890",
-                    whatsapp: "https://chat.whatsapp.com/example1",
-                    joinDate: "2024-01-15",
-                    status: "active",
-                    warnings: 0
-                },
-                {
-                    id: 2,
-                    name: "Conner",
-                    phone: "+1234567891",
-                    whatsapp: "https://chat.whatsapp.com/example2",
-                    joinDate: "2024-02-20",
-                    status: "active",
-                    warnings: 0
-                },
-                {
-                    id: 3,
-                    name: "Ramester",
-                    phone: "+1234567892",
-                    whatsapp: "https://chat.whatsapp.com/example3",
-                    joinDate: "2024-03-10",
-                    status: "warned",
-                    warnings: 1
-                }
-            ];
-            
-            // Initialize empty arrays for warnings and bans
-            warnings = [];
-            bans = [];
-            
-            // Save to localStorage
-            saveData();
-        }
-
-        function loadData() {
-            // Load from localStorage
-            const savedMembers = localStorage.getItem('cicawards_members');
-            const savedWarnings = localStorage.getItem('cicawards_warnings');
-            const savedBans = localStorage.getItem('cicawards_bans');
-            
-            if (savedMembers) members = JSON.parse(savedMembers);
-            if (savedWarnings) warnings = JSON.parse(savedWarnings);
-            if (savedBans) bans = JSON.parse(savedBans);
-            
-            updateStats();
-            updateTables();
-        }
-
-        function saveData() {
-            localStorage.setItem('cicawards_members', JSON.stringify(members));
-            localStorage.setItem('cicawards_warnings', JSON.stringify(warnings));
-            localStorage.setItem('cicawards_bans', JSON.stringify(bans));
-            
-            updateStats();
-            updateTables();
         }
 
         function updateStats() {
@@ -1306,13 +1523,13 @@
                     <td>${member.warnings}</td>
                     <td>
                         <div class="table-actions">
-                            <button class="table-btn warn" data-id="${member.id}" onclick="warnMember(${member.id})">
+                            <button class="table-btn warn" data-id="${member.id}" onclick="warnMember('${member.id}')">
                                 <i class="fas fa-exclamation-triangle"></i> Warn
                             </button>
-                            <button class="table-btn ban" data-id="${member.id}" onclick="banMember(${member.id})">
+                            <button class="table-btn ban" data-id="${member.id}" onclick="banMember('${member.id}')">
                                 <i class="fas fa-ban"></i> Ban
                             </button>
-                            <button class="table-btn remove" data-id="${member.id}" onclick="removeMember(${member.id})">
+                            <button class="table-btn remove" data-id="${member.id}" onclick="removeMember('${member.id}')">
                                 <i class="fas fa-trash"></i> Remove
                             </button>
                         </div>
@@ -1380,7 +1597,7 @@
             });
         }
 
-        function addNewMember() {
+        async function addNewMember() {
             const name = document.getElementById('memberName').value.trim();
             const phone = document.getElementById('memberPhone').value.trim();
             const whatsapp = document.getElementById('memberWhatsApp').value.trim();
@@ -1390,32 +1607,32 @@
                 return;
             }
             
-            // Generate new ID
-            const newId = members.length > 0 ? Math.max(...members.map(m => m.id)) + 1 : 1;
-            
-            // Create new member
-            const newMember = {
-                id: newId,
-                name: name,
-                phone: phone,
-                whatsapp: whatsapp,
-                joinDate: new Date().toISOString().split('T')[0],
-                status: 'active',
-                warnings: 0
-            };
-            
-            members.push(newMember);
-            saveData();
-            
-            // Clear form and close modal
-            document.getElementById('addMemberForm').reset();
-            closeModal('addMemberModal');
-            
-            alert('Member added successfully!');
+            try {
+                // Create new member in Firebase
+                const newMember = {
+                    name: name,
+                    phone: phone,
+                    whatsapp: whatsapp,
+                    joinDate: new Date().toISOString().split('T')[0],
+                    status: 'active',
+                    warnings: 0
+                };
+                
+                await window.firebaseMethods.addDoc(membersCollection, newMember);
+                
+                // Clear form and close modal
+                document.getElementById('addMemberForm').reset();
+                closeModal('addMemberModal');
+                
+                alert('Member added successfully!');
+            } catch (error) {
+                console.error('Error adding member:', error);
+                alert('Error adding member. Please try again.');
+            }
         }
 
-        function issueWarning() {
-            const memberId = parseInt(warnMemberSelect.value);
+        async function issueWarning() {
+            const memberId = warnMemberSelect.value;
             const reason = document.getElementById('warnReason').value.trim();
             
             if (!memberId || !reason) {
@@ -1423,39 +1640,46 @@
                 return;
             }
             
-            const member = members.find(m => m.id === memberId);
-            if (!member) {
-                alert('Member not found');
-                return;
+            try {
+                // Get member document
+                const memberDoc = window.firebaseMethods.doc(db, 'members', memberId);
+                const memberSnap = await window.firebaseMethods.getDoc(memberDoc);
+                
+                if (!memberSnap.exists()) {
+                    alert('Member not found');
+                    return;
+                }
+                
+                const member = { id: memberSnap.id, ...memberSnap.data() };
+                
+                // Update member in Firebase
+                await window.firebaseMethods.updateDoc(memberDoc, {
+                    status: 'warned',
+                    warnings: (member.warnings || 0) + 1
+                });
+                
+                // Create warning record in Firebase
+                await window.firebaseMethods.addDoc(warningsCollection, {
+                    memberId: memberId,
+                    memberName: member.name,
+                    date: new Date().toISOString().split('T')[0],
+                    reason: reason,
+                    issuedBy: currentAdmin.fullName
+                });
+                
+                // Clear form and close modal
+                document.getElementById('warnMemberForm').reset();
+                closeModal('warnMemberModal');
+                
+                alert(`Warning issued to ${member.name}`);
+            } catch (error) {
+                console.error('Error issuing warning:', error);
+                alert('Error issuing warning. Please try again.');
             }
-            
-            // Update member status
-            member.status = 'warned';
-            member.warnings++;
-            
-            // Create warning record
-            const warningId = Date.now().toString();
-            const warning = {
-                id: warningId,
-                memberId: memberId,
-                memberName: member.name,
-                date: new Date().toISOString().split('T')[0],
-                reason: reason,
-                issuedBy: currentAdmin.fullName
-            };
-            
-            warnings.push(warning);
-            saveData();
-            
-            // Clear form and close modal
-            document.getElementById('warnMemberForm').reset();
-            closeModal('warnMemberModal');
-            
-            alert(`Warning issued to ${member.name}`);
         }
 
-        function issueBan() {
-            const memberId = parseInt(banMemberSelect.value);
+        async function issueBan() {
+            const memberId = banMemberSelect.value;
             const reason = document.getElementById('banReason').value.trim();
             
             if (!memberId || !reason) {
@@ -1463,125 +1687,190 @@
                 return;
             }
             
-            const member = members.find(m => m.id === memberId);
-            if (!member) {
-                alert('Member not found');
-                return;
+            try {
+                // Get member document
+                const memberDoc = window.firebaseMethods.doc(db, 'members', memberId);
+                const memberSnap = await window.firebaseMethods.getDoc(memberDoc);
+                
+                if (!memberSnap.exists()) {
+                    alert('Member not found');
+                    return;
+                }
+                
+                const member = { id: memberSnap.id, ...memberSnap.data() };
+                
+                // Update member in Firebase
+                await window.firebaseMethods.updateDoc(memberDoc, {
+                    status: 'banned'
+                });
+                
+                // Create ban record in Firebase
+                await window.firebaseMethods.addDoc(bansCollection, {
+                    memberId: memberId,
+                    memberName: member.name,
+                    date: new Date().toISOString().split('T')[0],
+                    reason: reason,
+                    bannedBy: currentAdmin.fullName
+                });
+                
+                // Clear form and close modal
+                document.getElementById('banMemberForm').reset();
+                closeModal('banMemberModal');
+                
+                alert(`${member.name} has been banned`);
+            } catch (error) {
+                console.error('Error banning member:', error);
+                alert('Error banning member. Please try again.');
             }
-            
-            // Update member status
-            member.status = 'banned';
-            
-            // Create ban record
-            const ban = {
-                memberId: memberId,
-                memberName: member.name,
-                date: new Date().toISOString().split('T')[0],
-                reason: reason,
-                bannedBy: currentAdmin.fullName
-            };
-            
-            bans.push(ban);
-            saveData();
-            
-            // Clear form and close modal
-            document.getElementById('banMemberForm').reset();
-            closeModal('banMemberModal');
-            
-            alert(`${member.name} has been banned`);
         }
 
         // Action functions for table buttons
-        window.warnMember = function(memberId) {
+        window.warnMember = async function(memberId) {
             const member = members.find(m => m.id === memberId);
             if (member) {
                 const reason = prompt(`Enter warning reason for ${member.name}:`);
                 if (reason && reason.trim()) {
-                    member.status = 'warned';
-                    member.warnings++;
-                    
-                    const warningId = Date.now().toString();
-                    const warning = {
-                        id: warningId,
-                        memberId: memberId,
-                        memberName: member.name,
-                        date: new Date().toISOString().split('T')[0],
-                        reason: reason.trim(),
-                        issuedBy: currentAdmin.fullName
-                    };
-                    
-                    warnings.push(warning);
-                    saveData();
-                    
-                    alert(`Warning issued to ${member.name}`);
+                    try {
+                        // Update member in Firebase
+                        const memberDoc = window.firebaseMethods.doc(db, 'members', memberId);
+                        await window.firebaseMethods.updateDoc(memberDoc, {
+                            status: 'warned',
+                            warnings: (member.warnings || 0) + 1
+                        });
+                        
+                        // Create warning record in Firebase
+                        await window.firebaseMethods.addDoc(warningsCollection, {
+                            memberId: memberId,
+                            memberName: member.name,
+                            date: new Date().toISOString().split('T')[0],
+                            reason: reason.trim(),
+                            issuedBy: currentAdmin.fullName
+                        });
+                        
+                        alert(`Warning issued to ${member.name}`);
+                    } catch (error) {
+                        console.error('Error warning member:', error);
+                        alert('Error warning member. Please try again.');
+                    }
                 }
             }
         };
 
-        window.banMember = function(memberId) {
+        window.banMember = async function(memberId) {
             const member = members.find(m => m.id === memberId);
             if (member) {
                 const reason = prompt(`Enter ban reason for ${member.name}:`);
                 if (reason && reason.trim()) {
-                    member.status = 'banned';
-                    
-                    const ban = {
-                        memberId: memberId,
-                        memberName: member.name,
-                        date: new Date().toISOString().split('T')[0],
-                        reason: reason.trim(),
-                        bannedBy: currentAdmin.fullName
-                    };
-                    
-                    bans.push(ban);
-                    saveData();
-                    
-                    alert(`${member.name} has been banned`);
+                    try {
+                        // Update member in Firebase
+                        const memberDoc = window.firebaseMethods.doc(db, 'members', memberId);
+                        await window.firebaseMethods.updateDoc(memberDoc, {
+                            status: 'banned'
+                        });
+                        
+                        // Create ban record in Firebase
+                        await window.firebaseMethods.addDoc(bansCollection, {
+                            memberId: memberId,
+                            memberName: member.name,
+                            date: new Date().toISOString().split('T')[0],
+                            reason: reason.trim(),
+                            bannedBy: currentAdmin.fullName
+                        });
+                        
+                        alert(`${member.name} has been banned`);
+                    } catch (error) {
+                        console.error('Error banning member:', error);
+                        alert('Error banning member. Please try again.');
+                    }
                 }
             }
         };
 
-        window.removeMember = function(memberId) {
+        window.removeMember = async function(memberId) {
             if (confirm('Are you sure you want to remove this member? This action cannot be undone.')) {
-                const index = members.findIndex(m => m.id === memberId);
-                if (index !== -1) {
-                    members.splice(index, 1);
+                try {
+                    // Delete member from Firebase
+                    await window.firebaseMethods.deleteDoc(window.firebaseMethods.doc(db, 'members', memberId));
                     
-                    // Remove related warnings and bans
-                    warnings = warnings.filter(w => w.memberId !== memberId);
-                    bans = bans.filter(b => b.memberId !== memberId);
+                    // Delete related warnings from Firebase
+                    const warningsQuery = window.firebaseMethods.query(warningsCollection, window.firebaseMethods.where('memberId', '==', memberId));
+                    const warningsSnapshot = await window.firebaseMethods.getDocs(warningsQuery);
+                    warningsSnapshot.forEach(async (doc) => {
+                        await window.firebaseMethods.deleteDoc(window.firebaseMethods.doc(db, 'warnings', doc.id));
+                    });
                     
-                    saveData();
+                    // Delete related bans from Firebase
+                    const bansQuery = window.firebaseMethods.query(bansCollection, window.firebaseMethods.where('memberId', '==', memberId));
+                    const bansSnapshot = await window.firebaseMethods.getDocs(bansQuery);
+                    bansSnapshot.forEach(async (doc) => {
+                        await window.firebaseMethods.deleteDoc(window.firebaseMethods.doc(db, 'bans', doc.id));
+                    });
+                    
                     alert('Member removed successfully');
+                } catch (error) {
+                    console.error('Error removing member:', error);
+                    alert('Error removing member. Please try again.');
                 }
             }
         };
 
-        window.removeWarning = function(warningId) {
+        window.removeWarning = async function(warningId) {
             if (confirm('Are you sure you want to remove this warning?')) {
-                const index = warnings.findIndex(w => w.id === warningId);
-                if (index !== -1) {
-                    warnings.splice(index, 1);
-                    saveData();
-                    alert('Warning removed successfully');
-                }
-            }
-        };
-
-        window.unbanMember = function(memberId) {
-            if (confirm('Are you sure you want to unban this member?')) {
-                const member = members.find(m => m.id === memberId);
-                if (member) {
-                    member.status = 'active';
+                try {
+                    // Get warning to find member
+                    const warningDoc = window.firebaseMethods.doc(db, 'warnings', warningId);
+                    const warningSnap = await window.firebaseMethods.getDoc(warningDoc);
                     
-                    // Remove from bans
-                    const banIndex = bans.findIndex(b => b.memberId === memberId);
-                    if (banIndex !== -1) {
-                        bans.splice(banIndex, 1);
+                    if (warningSnap.exists()) {
+                        const warning = warningSnap.data();
+                        
+                        // Update member warning count
+                        const memberDoc = window.firebaseMethods.doc(db, 'members', warning.memberId);
+                        const memberSnap = await window.firebaseMethods.getDoc(memberDoc);
+                        
+                        if (memberSnap.exists()) {
+                            const member = memberSnap.data();
+                            const newWarnings = Math.max(0, (member.warnings || 0) - 1);
+                            const newStatus = newWarnings === 0 ? 'active' : member.status;
+                            
+                            await window.firebaseMethods.updateDoc(memberDoc, {
+                                warnings: newWarnings,
+                                status: newStatus
+                            });
+                        }
                     }
                     
-                    saveData();
-                    alert(`${member.name} has been unbanned`);
+                    // Delete warning from Firebase
+                    await window.firebaseMethods.deleteDoc(warningDoc);
+                    
+                    alert('Warning removed successfully');
+                } catch (error) {
+                    console.error('Error removing warning:', error);
+                    alert('Error removing warning. Please try again.');
+                }
+            }
+        };
+
+        window.unbanMember = async function(memberId) {
+            if (confirm('Are you sure you want to unban this member?')) {
+                try {
+                    // Update member in Firebase
+                    const memberDoc = window.firebaseMethods.doc(db, 'members', memberId);
+                    await window.firebaseMethods.updateDoc(memberDoc, {
+                        status: 'active'
+                    });
+                    
+                    // Delete ban record from Firebase
+                    const bansQuery = window.firebaseMethods.query(bansCollection, window.firebaseMethods.where('memberId', '==', memberId));
+                    const bansSnapshot = await window.firebaseMethods.getDocs(bansQuery);
+                    bansSnapshot.forEach(async (doc) => {
+                        await window.firebaseMethods.deleteDoc(window.firebaseMethods.doc(db, 'bans', doc.id));
+                    });
+                    
+                    alert(`Member has been unbanned`);
+                } catch (error) {
+                    console.error('Error unbanning member:', error);
+                    alert('Error unbanning member. Please try again.');
                 }
             }
         };
@@ -1624,4 +1913,3 @@
     </script>
 </body>
 </html>
-              
