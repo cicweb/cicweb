@@ -703,6 +703,36 @@
             100% { opacity: 1; }
         }
         
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light-gray);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Responsive Styles */
         @media (max-width: 768px) {
             .login-container {
@@ -780,6 +810,12 @@
     </style>
 </head>
 <body>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Loading dashboard...</p>
+    </div>
+    
     <!-- Firebase Status Indicator -->
     <div class="firebase-status" id="firebaseStatus">
         <div class="status-indicator"></div>
@@ -797,8 +833,8 @@
             
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+                    <label for="username">Email Address</label>
+                    <input type="email" id="username" class="form-control" placeholder="Enter admin email" required>
                     <div class="error-message" id="usernameError"></div>
                 </div>
                 
@@ -808,7 +844,7 @@
                     <div class="error-message" id="passwordError"></div>
                 </div>
                 
-                <button type="submit" class="btn">
+                <button type="submit" class="btn" id="loginBtn">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
             </form>
@@ -1081,6 +1117,7 @@
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
         import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc, where } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
 
         // Your web app's Firebase configuration
@@ -1098,16 +1135,19 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
         // Make Firebase available globally
         window.firebaseApp = app;
         window.firebaseDb = db;
+        window.firebaseAuth = auth;
         window.firebaseCollections = {
             members: collection(db, 'members'),
             warnings: collection(db, 'warnings'),
             bans: collection(db, 'bans')
         };
         window.firebaseMethods = {
+            // Firestore methods
             collection,
             doc,
             setDoc,
@@ -1120,35 +1160,148 @@
             orderBy,
             serverTimestamp,
             addDoc,
-            where
+            where,
+            // Auth methods
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
         };
         
         console.log('Firebase initialized successfully');
-        console.log('Firestore database:', db);
     </script>
 
     <script>
         // Firebase variables
         let db;
+        let auth;
         let membersCollection;
         let warningsCollection;
         let bansCollection;
         
+        // Admin display names mapping (email to display name)
+        const adminDisplayNames = {
+            'conner@ciccommunity.com': 'Conner',
+            'leo@ciccommunity.com': 'Leo',
+            'hanzala@ciccommunity.com': 'Hanzala',
+            'ayush@ciccommunity.com': 'Ayush',
+            'ziad@ciccommunity.com': 'Ziad'
+        };
+        
+        // Current admin session
+        let currentAdmin = null;
+        let members = [];
+        let warnings = [];
+        let bans = [];
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const adminNameDisplay = document.getElementById('adminNameDisplay');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        
+        // Stats elements
+        const totalMembersEl = document.getElementById('totalMembers');
+        const warnedMembersEl = document.getElementById('warnedMembers');
+        const bannedMembersEl = document.getElementById('bannedMembers');
+        const activeMembersEl = document.getElementById('activeMembers');
+        
+        // Table elements
+        const membersTableBody = document.getElementById('membersTableBody');
+        const warningsTableBody = document.getElementById('warningsTableBody');
+        const bansTableBody = document.getElementById('bansTableBody');
+        
+        // Modal elements
+        const addMemberModal = document.getElementById('addMemberModal');
+        const warnMemberModal = document.getElementById('warnMemberModal');
+        const banMemberModal = document.getElementById('banMemberModal');
+        const addMemberBtn = document.getElementById('addMemberBtn');
+        const warnMemberBtn = document.getElementById('warnMemberBtn');
+        const banMemberBtn = document.getElementById('banMemberBtn');
+        const warnMemberSelect = document.getElementById('warnMemberSelect');
+        const banMemberSelect = document.getElementById('banMemberSelect');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start Firebase initialization
+            initializeFirebase();
+            
+            // Check if user is already logged in via Firebase Auth
+            const savedAdmin = localStorage.getItem('cicawards_admin');
+            if (savedAdmin) {
+                try {
+                    currentAdmin = JSON.parse(savedAdmin);
+                    showLoading(true);
+                } catch (e) {
+                    localStorage.removeItem('cicawards_admin');
+                }
+            }
+
+            // Event Listeners
+            loginForm.addEventListener('submit', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Modal open buttons
+            addMemberBtn.addEventListener('click', () => openModal('addMemberModal'));
+            warnMemberBtn.addEventListener('click', () => {
+                populateMemberSelect(warnMemberSelect);
+                openModal('warnMemberModal');
+            });
+            banMemberBtn.addEventListener('click', () => {
+                populateMemberSelect(banMemberSelect);
+                openModal('banMemberModal');
+            });
+            
+            // Modal close buttons
+            document.querySelectorAll('.close-modal, [data-modal]').forEach(btn => {
+                if (btn.classList.contains('close-modal') || btn.getAttribute('data-modal')) {
+                    btn.addEventListener('click', function() {
+                        const modalId = this.getAttribute('data-modal');
+                        closeModal(modalId);
+                    });
+                }
+            });
+            
+            // Modal overlay close
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            // Form submissions
+            document.getElementById('saveMemberBtn').addEventListener('click', addNewMember);
+            document.getElementById('issueWarningBtn').addEventListener('click', issueWarning);
+            document.getElementById('issueBanBtn').addEventListener('click', issueBan);
+        });
+
         // Firebase initialization check
         function initializeFirebase() {
-            if (window.firebaseDb && window.firebaseMethods && window.firebaseCollections) {
+            if (window.firebaseDb && window.firebaseAuth && window.firebaseMethods && window.firebaseCollections) {
                 db = window.firebaseDb;
+                auth = window.firebaseAuth;
                 membersCollection = window.firebaseCollections.members;
                 warningsCollection = window.firebaseCollections.warnings;
                 bansCollection = window.firebaseCollections.bans;
                 
                 updateFirebaseStatus('connected');
-                console.log('Firebase Firestore initialized with collections:', { membersCollection, warningsCollection, bansCollection });
+                console.log('Firebase Firestore and Auth initialized');
                 
-                // If admin is logged in, setup real-time listeners
-                if (currentAdmin) {
-                    setupRealtimeListeners();
-                }
+                // Set up auth state listener
+                setupAuthListener();
                 
                 return true;
             } else {
@@ -1156,6 +1309,44 @@
                 setTimeout(initializeFirebase, 500);
                 return false;
             }
+        }
+        
+        // Set up Firebase auth state listener
+        function setupAuthListener() {
+            window.firebaseMethods.onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in
+                    const email = user.email.toLowerCase();
+                    currentAdmin = {
+                        uid: user.uid,
+                        email: user.email,
+                        fullName: adminDisplayNames[email] || user.email.split('@')[0]
+                    };
+                    
+                    localStorage.setItem('cicawards_admin', JSON.stringify(currentAdmin));
+                    
+                    // Initialize dashboard
+                    showDashboard();
+                    loadData();
+                    setupRealtimeListeners();
+                    
+                    showLoading(false);
+                } else {
+                    // User is signed out
+                    currentAdmin = null;
+                    localStorage.removeItem('cicawards_admin');
+                    
+                    // If we were trying to auto-login but failed
+                    if (loadingSpinner.style.display === 'flex') {
+                        showLoading(false);
+                        showLogin();
+                    }
+                }
+            }, (error) => {
+                console.error('Auth state error:', error);
+                showLoading(false);
+                updateFirebaseStatus('disconnected');
+            });
         }
         
         // Update Firebase connection status
@@ -1175,6 +1366,15 @@
                 indicator.classList.add('disconnected');
                 indicator.classList.remove('connected');
                 statusEl.querySelector('span').textContent = 'Database disconnected';
+            }
+        }
+        
+        // Show/hide loading spinner
+        function showLoading(show) {
+            if (show) {
+                loadingSpinner.style.display = 'flex';
+            } else {
+                loadingSpinner.style.display = 'none';
             }
         }
         
@@ -1252,9 +1452,6 @@
                 updateStats();
                 updateTables();
                 console.log('Data loaded from Firebase successfully');
-                console.log('Members:', members.length);
-                console.log('Warnings:', warnings.length);
-                console.log('Bans:', bans.length);
             } catch (error) {
                 console.error('Error loading data from Firebase:', error);
                 updateFirebaseStatus('disconnected');
@@ -1262,170 +1459,73 @@
             }
         }
 
-        // Admin credentials
-        const adminCredentials = {
-            'Conner': { password: 'Conner@2025', fullName: 'Conner' },
-            'Leo': { password: 'LeoSup@2025', fullName: 'Leo' },
-            'Hanzala': { password: 'Hanzala2025$', fullName: 'Hanzala' },
-            'Ayush': { password: 'AyushNayak@26', fullName: 'Ayush' },
-            'Ziad': { password: 'superziad@25', fullName: 'Ziad' }
-        };
-
-        // Current admin session
-        let currentAdmin = null;
-        let members = [];
-        let warnings = [];
-        let bans = [];
-
-        // DOM Elements
-        const loginPage = document.getElementById('loginPage');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const adminNameDisplay = document.getElementById('adminNameDisplay');
-        const welcomeMessage = document.getElementById('welcomeMessage');
-        
-        // Stats elements
-        const totalMembersEl = document.getElementById('totalMembers');
-        const warnedMembersEl = document.getElementById('warnedMembers');
-        const bannedMembersEl = document.getElementById('bannedMembers');
-        const activeMembersEl = document.getElementById('activeMembers');
-        
-        // Table elements
-        const membersTableBody = document.getElementById('membersTableBody');
-        const warningsTableBody = document.getElementById('warningsTableBody');
-        const bansTableBody = document.getElementById('bansTableBody');
-        
-        // Modal elements
-        const addMemberModal = document.getElementById('addMemberModal');
-        const warnMemberModal = document.getElementById('warnMemberModal');
-        const banMemberModal = document.getElementById('banMemberModal');
-        const addMemberBtn = document.getElementById('addMemberBtn');
-        const warnMemberBtn = document.getElementById('warnMemberBtn');
-        const banMemberBtn = document.getElementById('banMemberBtn');
-        const warnMemberSelect = document.getElementById('warnMemberSelect');
-        const banMemberSelect = document.getElementById('banMemberSelect');
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Start Firebase initialization
-            initializeFirebase();
-            
-            // Check if admin is already logged in
-            const savedAdmin = localStorage.getItem('cicawards_admin');
-            if (savedAdmin) {
-                try {
-                    currentAdmin = JSON.parse(savedAdmin);
-                    if (adminCredentials[currentAdmin.username]) {
-                        showDashboard();
-                        // Wait for Firebase to initialize, then load data
-                        const checkFirebase = setInterval(() => {
-                            if (db) {
-                                clearInterval(checkFirebase);
-                                loadData();
-                                setupRealtimeListeners();
-                            }
-                        }, 100);
-                    } else {
-                        localStorage.removeItem('cicawards_admin');
-                    }
-                } catch (e) {
-                    localStorage.removeItem('cicawards_admin');
-                }
-            }
-
-            // Event Listeners
-            loginForm.addEventListener('submit', handleLogin);
-            logoutBtn.addEventListener('click', handleLogout);
-            
-            // Tab switching
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    switchTab(tabId);
-                });
-            });
-            
-            // Modal open buttons
-            addMemberBtn.addEventListener('click', () => openModal('addMemberModal'));
-            warnMemberBtn.addEventListener('click', () => {
-                populateMemberSelect(warnMemberSelect);
-                openModal('warnMemberModal');
-            });
-            banMemberBtn.addEventListener('click', () => {
-                populateMemberSelect(banMemberSelect);
-                openModal('banMemberModal');
-            });
-            
-            // Modal close buttons
-            document.querySelectorAll('.close-modal, [data-modal]').forEach(btn => {
-                if (btn.classList.contains('close-modal') || btn.getAttribute('data-modal')) {
-                    btn.addEventListener('click', function() {
-                        const modalId = this.getAttribute('data-modal');
-                        closeModal(modalId);
-                    });
-                }
-            });
-            
-            // Modal overlay close
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal(this.id);
-                    }
-                });
-            });
-            
-            // Form submissions
-            document.getElementById('saveMemberBtn').addEventListener('click', addNewMember);
-            document.getElementById('issueWarningBtn').addEventListener('click', issueWarning);
-            document.getElementById('issueBanBtn').addEventListener('click', issueBan);
-        });
-
         // Functions
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
             
-            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             
             // Reset error messages
             document.getElementById('usernameError').style.display = 'none';
             document.getElementById('passwordError').style.display = 'none';
             
-            // Validate credentials
-            if (!adminCredentials[username]) {
-                document.getElementById('usernameError').textContent = 'Invalid username';
+            // Validate email format
+            if (!email || !email.includes('@')) {
+                document.getElementById('usernameError').textContent = 'Please enter a valid email address';
                 document.getElementById('usernameError').style.display = 'block';
                 return;
             }
             
-            if (adminCredentials[username].password !== password) {
-                document.getElementById('passwordError').textContent = 'Invalid password';
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Please enter your password';
                 document.getElementById('passwordError').style.display = 'block';
                 return;
             }
             
-            // Login successful
-            currentAdmin = {
-                username: username,
-                fullName: adminCredentials[username].fullName
-            };
+            // Disable login button and show loading
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
             
-            // Save to localStorage
-            localStorage.setItem('cicawards_admin', JSON.stringify(currentAdmin));
-            
-            // Show dashboard
-            showDashboard();
-            
-            // Initialize Firebase and load data
-            if (initializeFirebase()) {
-                loadData();
-                setupRealtimeListeners();
+            try {
+                // Sign in with Firebase Authentication
+                await window.firebaseMethods.signInWithEmailAndPassword(auth, email, password);
+                // Auth state listener will handle the rest
+            } catch (error) {
+                console.error('Login error:', error);
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+                
+                // Handle specific errors
+                if (error.code === 'auth/invalid-email') {
+                    document.getElementById('usernameError').textContent = 'Invalid email format';
+                    document.getElementById('usernameError').style.display = 'block';
+                } else if (error.code === 'auth/user-not-found') {
+                    document.getElementById('usernameError').textContent = 'No account found with this email';
+                    document.getElementById('usernameError').style.display = 'block';
+                } else if (error.code === 'auth/wrong-password') {
+                    document.getElementById('passwordError').textContent = 'Incorrect password';
+                    document.getElementById('passwordError').style.display = 'block';
+                } else if (error.code === 'auth/too-many-requests') {
+                    document.getElementById('passwordError').textContent = 'Too many attempts. Try again later';
+                    document.getElementById('passwordError').style.display = 'block';
+                } else if (error.code === 'auth/user-disabled') {
+                    document.getElementById('usernameError').textContent = 'This account has been disabled';
+                    document.getElementById('usernameError').style.display = 'block';
+                } else {
+                    document.getElementById('passwordError').textContent = 'Login failed. Please try again';
+                    document.getElementById('passwordError').style.display = 'block';
+                }
             }
         }
 
-        function handleLogout() {
+        async function handleLogout() {
+            try {
+                await window.firebaseMethods.signOut(auth);
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+            
             currentAdmin = null;
             localStorage.removeItem('cicawards_admin');
             showLogin();
@@ -1447,6 +1547,8 @@
         function showLogin() {
             loginPage.style.display = 'flex';
             dashboard.style.display = 'none';
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
         }
 
         function updateStats() {
