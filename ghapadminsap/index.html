@@ -1080,7 +1080,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDoc, getDocs, updateDoc, deleteDoc, onSnapshot, query, orderBy, serverTimestamp, addDoc, where } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
 
         // Your web app's Firebase configuration
@@ -1102,6 +1102,11 @@
         // Make Firebase available globally
         window.firebaseApp = app;
         window.firebaseDb = db;
+        window.firebaseCollections = {
+            members: collection(db, 'members'),
+            warnings: collection(db, 'warnings'),
+            bans: collection(db, 'bans')
+        };
         window.firebaseMethods = {
             collection,
             doc,
@@ -1114,10 +1119,12 @@
             query,
             orderBy,
             serverTimestamp,
-            addDoc
+            addDoc,
+            where
         };
         
         console.log('Firebase initialized successfully');
+        console.log('Firestore database:', db);
     </script>
 
     <script>
@@ -1129,14 +1136,14 @@
         
         // Firebase initialization check
         function initializeFirebase() {
-            if (window.firebaseDb && window.firebaseMethods) {
+            if (window.firebaseDb && window.firebaseMethods && window.firebaseCollections) {
                 db = window.firebaseDb;
-                membersCollection = window.firebaseMethods.collection(db, 'members');
-                warningsCollection = window.firebaseMethods.collection(db, 'warnings');
-                bansCollection = window.firebaseMethods.collection(db, 'bans');
+                membersCollection = window.firebaseCollections.members;
+                warningsCollection = window.firebaseCollections.warnings;
+                bansCollection = window.firebaseCollections.bans;
                 
                 updateFirebaseStatus('connected');
-                console.log('Firebase Firestore initialized');
+                console.log('Firebase Firestore initialized with collections:', { membersCollection, warningsCollection, bansCollection });
                 
                 // If admin is logged in, setup real-time listeners
                 if (currentAdmin) {
@@ -1173,6 +1180,8 @@
         
         // Setup real-time listeners
         function setupRealtimeListeners() {
+            console.log('Setting up real-time listeners...');
+            
             // Members listener
             const membersQuery = window.firebaseMethods.query(membersCollection, window.firebaseMethods.orderBy('joinDate', 'desc'));
             window.firebaseMethods.onSnapshot(membersQuery, (snapshot) => {
@@ -1182,7 +1191,9 @@
                 });
                 updateStats();
                 updateMembersTable();
-                console.log('Members updated in real-time');
+                console.log('Members updated in real-time:', members.length, 'members');
+            }, (error) => {
+                console.error('Error in members listener:', error);
             });
             
             // Warnings listener
@@ -1193,7 +1204,9 @@
                     warnings.push({ id: doc.id, ...doc.data() });
                 });
                 updateWarningsTable();
-                console.log('Warnings updated in real-time');
+                console.log('Warnings updated in real-time:', warnings.length, 'warnings');
+            }, (error) => {
+                console.error('Error in warnings listener:', error);
             });
             
             // Bans listener
@@ -1204,19 +1217,17 @@
                     bans.push({ id: doc.id, ...doc.data() });
                 });
                 updateBansTable();
-                console.log('Bans updated in real-time');
+                console.log('Bans updated in real-time:', bans.length, 'bans');
+            }, (error) => {
+                console.error('Error in bans listener:', error);
             });
-        }
-        
-        // Save data to Firebase
-        async function saveData() {
-            // Stats are updated automatically by listeners
-            updateStats();
         }
         
         // Load initial data from Firebase
         async function loadData() {
             try {
+                console.log('Loading data from Firebase...');
+                
                 // Load members
                 const membersSnapshot = await window.firebaseMethods.getDocs(membersCollection);
                 members = [];
@@ -1238,58 +1249,16 @@
                     bans.push({ id: doc.id, ...doc.data() });
                 });
                 
-                // If no members exist, create sample data
-                if (members.length === 0) {
-                    await initializeSampleData();
-                }
-                
                 updateStats();
                 updateTables();
-                console.log('Data loaded from Firebase');
+                console.log('Data loaded from Firebase successfully');
+                console.log('Members:', members.length);
+                console.log('Warnings:', warnings.length);
+                console.log('Bans:', bans.length);
             } catch (error) {
-                console.error('Error loading data:', error);
+                console.error('Error loading data from Firebase:', error);
                 updateFirebaseStatus('disconnected');
-            }
-        }
-        
-        // Initialize sample data in Firebase
-        async function initializeSampleData() {
-            try {
-                const sampleMembers = [
-                    {
-                        name: "Rares",
-                        phone: "+1234567890",
-                        whatsapp: "https://chat.whatsapp.com/example1",
-                        joinDate: "2024-01-15",
-                        status: "active",
-                        warnings: 0
-                    },
-                    {
-                        name: "Conner",
-                        phone: "+1234567891",
-                        whatsapp: "https://chat.whatsapp.com/example2",
-                        joinDate: "2024-02-20",
-                        status: "active",
-                        warnings: 0
-                    },
-                    {
-                        name: "Ramester",
-                        phone: "+1234567892",
-                        whatsapp: "https://chat.whatsapp.com/example3",
-                        joinDate: "2024-03-10",
-                        status: "warned",
-                        warnings: 1
-                    }
-                ];
-                
-                // Add sample members to Firebase
-                for (const member of sampleMembers) {
-                    await window.firebaseMethods.addDoc(membersCollection, member);
-                }
-                
-                console.log('Sample data initialized in Firebase');
-            } catch (error) {
-                console.error('Error initializing sample data:', error);
+                alert('Error connecting to database. Please refresh the page.');
             }
         }
 
