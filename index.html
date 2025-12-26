@@ -3,655 +3,1625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Under Construction | Coming Soon</title>
+    <title>CIC™ - Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #34a853;
+            --secondary-dark: #1b5e20;
+            --accent: #fbbc04;
+            --accent-dark: #f57f17;
+            --danger: #ea4335;
+            --danger-dark: #c5221f;
+            --warning: #fbbc04;
+            --warning-dark: #f57f17;
+            --dark: #202124;
+            --dark-light: #3c4043;
+            --light: #f8f9fa;
+            --light-gray: #e8eaed;
+            --text: #333333;
+            --text-light: #5f6368;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
-            min-height: 100vh;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
+            min-height: 100vh;
         }
         
-        .construction-container {
-            max-width: 1200px;
-            width: 100%;
-            text-align: center;
-            z-index: 10;
-            padding: 30px;
-            background-color: rgba(0, 0, 0, 0.6);
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Login Page Styles */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        
+        .login-container {
+            background-color: white;
+            padding: 50px 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .logo {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ffcc00, #ff9900);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            color: #a0a0c0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .construction-area {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 40px 0;
-            position: relative;
-            height: 300px;
-        }
-        
-        .crane {
-            position: relative;
-            width: 200px;
-            height: 250px;
-            margin-right: 100px;
-        }
-        
-        .crane-base {
-            width: 20px;
-            height: 100px;
-            background-color: #666;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .crane-arm {
-            width: 200px;
-            height: 10px;
-            background-color: #888;
-            position: absolute;
-            top: 30px;
-            left: 0;
-            border-radius: 5px;
-            transform-origin: left center;
-            animation: craneSwing 8s infinite alternate ease-in-out;
-        }
-        
-        .crane-cabin {
-            width: 40px;
-            height: 30px;
-            background-color: #ff9900;
-            position: absolute;
-            top: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 5px;
-        }
-        
-        .crane-hook {
-            width: 15px;
-            height: 30px;
-            background-color: #ffcc00;
-            position: absolute;
-            bottom: 20px;
-            left: 180px;
-            border-radius: 5px;
-            animation: hookMove 8s infinite alternate ease-in-out;
-        }
-        
-        .building {
-            position: relative;
-            width: 300px;
-            height: 250px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .building-floors {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .floor {
-            flex: 1;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .floor:hover {
-            background-color: rgba(255, 204, 0, 0.1);
-        }
-        
-        .floor-completed {
-            background-color: rgba(46, 204, 113, 0.2);
-        }
-        
-        .progress-container {
-            margin: 40px 0;
-        }
-        
-        .progress-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #ffcc00;
-        }
-        
-        .progress-bar {
+            box-shadow: var(--shadow);
             width: 100%;
-            height: 30px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
+            max-width: 450px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .login-logo span {
+            color: var(--accent);
+            margin-left: 5px;
+        }
+        
+        .login-logo i {
+            margin-right: 10px;
+            font-size: 2.8rem;
+        }
+        
+        .login-title {
+            font-size: 1.8rem;
             margin-bottom: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--dark);
         }
         
-        .progress-fill {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(90deg, #ff9900, #ffcc00);
-            border-radius: 15px;
-            position: relative;
-            transition: width 1s ease;
+        .login-subtitle {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
         
-        .progress-text {
-            font-size: 1.2rem;
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+        }
+        
+        .btn-warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        .btn-warning:hover {
+            background-color: var(--warning-dark);
+            box-shadow: 0 5px 15px rgba(251, 188, 4, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            box-shadow: 0 5px 15px rgba(52, 168, 83, 0.3);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+            box-shadow: 0 5px 15px rgba(251, 188, 4, 0.3);
+        }
+        
+        .error-message {
+            color: var(--danger);
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+        }
+        
+        /* Header */
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
+            align-items: center;
         }
         
-        .countdown {
-            margin: 40px 0;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-        }
-        
-        .countdown-title {
+        .dashboard-logo {
             font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #ffcc00;
-        }
-        
-        .countdown-timer {
+            font-weight: 800;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
             align-items: center;
         }
         
-        .countdown-value {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-            min-width: 80px;
+        .dashboard-logo span {
+            color: var(--accent);
+            margin-left: 5px;
         }
         
-        .countdown-label {
-            font-size: 1rem;
-            color: #a0a0c0;
-            margin-top: 5px;
+        .dashboard-logo i {
+            margin-right: 10px;
+            font-size: 2rem;
         }
         
-        .interactive-controls {
+        .admin-info {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
         }
         
-        .control-btn {
-            padding: 12px 25px;
+        .admin-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .admin-role {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.2);
             border: none;
-            border-radius: 50px;
-            background: linear-gradient(90deg, #ff9900, #ffcc00);
-            color: #1a1a2e;
-            font-size: 1.1rem;
-            font-weight: bold;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
         }
         
-        .control-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.3);
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
         }
         
-        .control-btn:active {
-            transform: translateY(1px);
+        /* Main Content */
+        .dashboard-main {
+            margin-top: 80px;
+            padding: 30px 0;
         }
         
-        .contact-info {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .welcome-banner {
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.1), rgba(52, 168, 83, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--primary);
         }
         
-        .contact-title {
-            font-size: 1.5rem;
+        .welcome-banner h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .welcome-banner p {
+            color: var(--text-light);
+            max-width: 800px;
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card.warning {
+            border-top-color: var(--warning);
+        }
+        
+        .stat-card.danger {
+            border-top-color: var(--danger);
+        }
+        
+        .stat-card.success {
+            border-top-color: var(--secondary);
+        }
+        
+        .stat-icon {
+            font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #ffcc00;
+            color: var(--primary);
         }
         
-        .contact-links {
+        .stat-card.warning .stat-icon {
+            color: var(--warning);
+        }
+        
+        .stat-card.danger .stat-icon {
+            color: var(--danger);
+        }
+        
+        .stat-card.success .stat-icon {
+            color: var(--secondary);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Tabs */
+        .tabs {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-btn:hover:not(.active) {
+            background-color: var(--light-gray);
+            color: var(--dark);
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Member Management */
+        .member-management {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 30px;
+        }
+        
+        .section-header h3 {
+            margin-bottom: 0;
+            font-size: 1.3rem;
+        }
+        
+        .section-content {
+            padding: 30px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
             flex-wrap: wrap;
         }
         
-        .contact-link {
+        .action-btn {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #a0a0c0;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
         }
         
-        .contact-link:hover {
-            color: #ffcc00;
+        .action-btn:hover {
+            background-color: #e0e0e0;
         }
         
-        .floating-elements {
-            position: absolute;
+        .action-btn.add {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .action-btn.add:hover {
+            background-color: var(--secondary-dark);
+        }
+        
+        .action-btn.warn {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        .action-btn.warn:hover {
+            background-color: var(--warning-dark);
+        }
+        
+        .action-btn.ban {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .action-btn.ban:hover {
+            background-color: var(--danger-dark);
+        }
+        
+        /* Table Styles */
+        .members-table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .members-table {
             width: 100%;
-            height: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .members-table thead {
+            background-color: var(--light-gray);
+        }
+        
+        .members-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .members-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .members-table tbody tr:hover {
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+        
+        .member-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: rgba(52, 168, 83, 0.1);
+            color: var(--secondary-dark);
+        }
+        
+        .status-warned {
+            background-color: rgba(251, 188, 4, 0.1);
+            color: #b06000;
+        }
+        
+        .status-banned {
+            background-color: rgba(234, 67, 53, 0.1);
+            color: var(--danger-dark);
+        }
+        
+        .table-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .table-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+        
+        .table-btn.warn {
+            background-color: rgba(251, 188, 4, 0.1);
+            color: #b06000;
+        }
+        
+        .table-btn.warn:hover {
+            background-color: rgba(251, 188, 4, 0.2);
+        }
+        
+        .table-btn.ban {
+            background-color: rgba(234, 67, 53, 0.1);
+            color: var(--danger-dark);
+        }
+        
+        .table-btn.ban:hover {
+            background-color: rgba(234, 67, 53, 0.2);
+        }
+        
+        .table-btn.remove {
+            background-color: rgba(128, 128, 128, 0.1);
+            color: #666;
+        }
+        
+        .table-btn.remove:hover {
+            background-color: rgba(128, 128, 128, 0.2);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
             top: 0;
             left: 0;
-            pointer-events: none;
-            z-index: 1;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
         
-        .floating-element {
-            position: absolute;
-            font-size: 2rem;
-            color: rgba(255, 204, 0, 0.3);
-            animation: float 15s infinite linear;
+        .modal {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
-        @keyframes craneSwing {
-            0% {
-                transform: rotate(-10deg);
-            }
-            100% {
-                transform: rotate(10deg);
-            }
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        @keyframes hookMove {
-            0% {
-                bottom: 20px;
-                left: 180px;
-            }
-            100% {
-                bottom: 150px;
-                left: 50px;
-            }
+        .modal-header h3 {
+            margin-bottom: 0;
+            font-size: 1.3rem;
         }
         
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-            }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
         }
         
+        .close-modal:hover {
+            color: var(--danger);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+        
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .login-container {
+                padding: 40px 25px;
+                margin: 20px;
             }
             
-            .construction-area {
+            .header-content {
                 flex-direction: column;
-                height: auto;
-                margin: 20px 0;
+                gap: 15px;
+                text-align: center;
             }
             
-            .crane {
-                margin-right: 0;
-                margin-bottom: 50px;
-            }
-            
-            .countdown-timer {
+            .admin-info {
                 flex-wrap: wrap;
+                justify-content: center;
             }
             
-            .countdown-value {
-                font-size: 2rem;
-                min-width: 60px;
+            .dashboard-main {
+                margin-top: 140px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .modal {
+                width: 95%;
+                margin: 10px;
             }
         }
         
         @media (max-width: 480px) {
-            h1 {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .login-logo {
                 font-size: 2rem;
             }
             
-            .tagline {
-                font-size: 1.2rem;
+            .tabs {
+                flex-direction: column;
             }
             
-            .control-btn {
+            .tab-btn {
                 width: 100%;
-                justify-content: center;
+                text-align: center;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="floating-elements" id="floatingElements"></div>
-    
-    <div class="construction-container">
-        <div class="logo">
-            <i class="fas fa-tools"></i>
-        </div>
-        
-        <h1>Under Construction</h1>
-        
-        <p class="tagline">We're building something amazing! Our website is currently under construction but will be ready soon. Stay tuned for the grand unveiling.</p>
-        
-        <div class="construction-area">
-            <div class="crane">
-                <div class="crane-base"></div>
-                <div class="crane-arm"></div>
-                <div class="crane-cabin"></div>
-                <div class="crane-hook"></div>
+    <!-- Login Page -->
+    <div class="login-page" id="loginPage">
+        <div class="login-container">
+            <div class="login-logo">
+                <i class="fas fa-user-shield"></i>CIC<span>Community</span>™
             </div>
+            <h2 class="login-title">Admin Dashboard</h2>
+            <p class="login-subtitle">Secure member management system</p>
             
-            <div class="building">
-                <div class="building-floors">
-                    <div class="floor floor-completed">Foundation</div>
-                    <div class="floor floor-completed">Structure</div>
-                    <div class="floor" id="floor3">Wiring</div>
-                    <div class="floor" id="floor4">Design</div>
-                    <div class="floor" id="floor5">Testing</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter username" required>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+                
+                <div class="form-group">
+<label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                
+                <button type="submit" class="btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="dashboard-logo">
+                        <i class="fas fa-user-shield"></i>CIC<span>Community</span>™
+                    </div>
+                    <div class="admin-info">
+                        <div class="admin-name" id="adminNameDisplay">Admin</div>
+                        <div class="admin-role">Administrator</div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </header>
         
-        <div class="progress-container">
-            <h3 class="progress-title">Construction Progress</h3>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="container">
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <h2 id="welcomeMessage">Welcome, Admin</h2>
+                    <p>Manage community members, warnings, bans, and view analytics from this dashboard.</p>
+                </div>
+                
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value" id="totalMembers">0</div>
+                        <div class="stat-label">Total Members</div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-value" id="warnedMembers">0</div>
+                        <div class="stat-label">Warned Members</div>
+                    </div>
+                    
+                    <div class="stat-card danger">
+                        <div class="stat-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="stat-value" id="bannedMembers">0</div>
+                        <div class="stat-label">Banned Members</div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="stat-value" id="activeMembers">0</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="members">Member Management</button>
+                    <button class="tab-btn" data-tab="warnings">Warnings</button>
+                    <button class="tab-btn" data-tab="bans">Bans</button>
+                </div>
+                
+                <!-- Members Tab -->
+                <div class="tab-content active" id="membersTab">
+                    <div class="member-management">
+                        <div class="section-header">
+                            <h3>Member Management</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="action-buttons">
+                                <button class="action-btn add" id="addMemberBtn">
+                                    <i class="fas fa-user-plus"></i> Add New Member
+                                </button>
+                                <button class="action-btn warn" id="warnMemberBtn">
+                                    <i class="fas fa-exclamation-triangle"></i> Issue Warning
+                                </button>
+                                <button class="action-btn ban" id="banMemberBtn">
+                                    <i class="fas fa-ban"></i> Ban Member
+                                </button>
+                            </div>
+                            
+                            <div class="members-table-container">
+                                <table class="members-table" id="membersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Phone Number</th>
+                                            <th>Join Date</th>
+                                            <th>Status</th>
+                                            <th>Warnings</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="membersTableBody">
+                                        <!-- Members will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Warnings Tab -->
+                <div class="tab-content" id="warningsTab">
+                    <div class="member-management">
+                        <div class="section-header">
+                            <h3>Warning History</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="members-table-container">
+                                <table class="members-table" id="warningsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Member</th>
+                                            <th>Date</th>
+                                            <th>Reason</th>
+                                            <th>Issued By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="warningsTableBody">
+                                        <!-- Warnings will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bans Tab -->
+                <div class="tab-content" id="bansTab">
+                    <div class="member-management">
+                        <div class="section-header">
+                            <h3>Ban Management</h3>
+                        </div>
+                        <div class="section-content">
+                            <div class="members-table-container">
+                                <table class="members-table" id="bansTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Member</th>
+                                            <th>Ban Date</th>
+                                            <th>Reason</th>
+                                            <th>Banned By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bansTableBody">
+                                        <!-- Bans will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="progress-text">
-                <span>Started: June 1, 2023</span>
-                <span id="progressPercentage">65%</span>
-                <span>Target: Dec 1, 2023</span>
+        </main>
+    </div>
+    
+    <!-- Modals -->
+    
+    <!-- Add Member Modal -->
+    <div class="modal-overlay" id="addMemberModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Member</h3>
+                <button class="close-modal" data-modal="addMemberModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addMemberForm">
+                    <div class="form-group">
+                        <label for="memberName">Full Name</label>
+                        <input type="text" id="memberName" class="form-control" placeholder="Enter full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="memberPhone">Phone Number</label>
+                        <input type="text" id="memberPhone" class="form-control" placeholder="Enter phone number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="memberWhatsApp">WhatsApp Link</label>
+                        <input type="text" id="memberWhatsApp" class="form-control" placeholder="Enter WhatsApp invite link">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="addMemberModal">Cancel</button>
+                <button class="btn" id="saveMemberBtn">Add Member</button>
             </div>
         </div>
-        
-        <div class="countdown">
-            <h3 class="countdown-title">Estimated Launch In</h3>
-            <div class="countdown-timer">
-                <div class="countdown-item">
-                    <div class="countdown-value" id="days">45</div>
-                    <div class="countdown-label">Days</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="hours">12</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="minutes">30</div>
-                    <div class="countdown-label">Minutes</div>
-                </div>
-                <div class="countdown-item">
-                    <div class="countdown-value" id="seconds">15</div>
-                    <div class="countdown-label">Seconds</div>
-                </div>
+    </div>
+    
+    <!-- Warn Member Modal -->
+    <div class="modal-overlay" id="warnMemberModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Issue Warning</h3>
+                <button class="close-modal" data-modal="warnMemberModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="warnMemberForm">
+                    <div class="form-group">
+                        <label for="warnMemberSelect">Select Member</label>
+                        <select id="warnMemberSelect" class="form-control" required>
+                            <option value="">Choose a member...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="warnReason">Reason for Warning</label>
+                        <textarea id="warnReason" class="form-control" rows="4" placeholder="Enter reason for warning..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="warnMemberModal">Cancel</button>
+                <button class="btn btn-warning" id="issueWarningBtn">Issue Warning</button>
             </div>
         </div>
-        
-        <div class="interactive-controls">
-            <button class="control-btn" id="speedUpBtn">
-                <i class="fas fa-tachometer-alt"></i> Speed Up Construction
-            </button>
-            <button class="control-btn" id="addWorkerBtn">
-                <i class="fas fa-hard-hat"></i> Add Construction Worker
-            </button>
-            <button class="control-btn" id="notifyBtn">
-                <i class="fas fa-bell"></i> Notify Me When Ready
-            </button>
-        </div>
-        
-        <div class="contact-info">
-            <h3 class="contact-title">Get In Touch</h3>
-            <div class="contact-links">
-                <a href="#" class="contact-link">
-                    <i class="fas fa-envelope"></i> hello@example.com
-                </a>
-                <a href="#" class="contact-link">
-                    <i class="fas fa-phone"></i> +1 (555) 123-4567
-                </a>
-                <a href="#" class="contact-link">
-                    <i class="fab fa-twitter"></i> @underconstruction
-                </a>
+    </div>
+    
+    <!-- Ban Member Modal -->
+    <div class="modal-overlay" id="banMemberModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Ban Member</h3>
+                <button class="close-modal" data-modal="banMemberModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="banMemberForm">
+                    <div class="form-group">
+                        <label for="banMemberSelect">Select Member</label>
+                        <select id="banMemberSelect" class="form-control" required>
+                            <option value="">Choose a member...</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="banReason">Reason for Ban</label>
+                        <textarea id="banReason" class="form-control" rows="4" placeholder="Enter reason for ban..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-modal="banMemberModal">Cancel</button>
+                <button class="btn btn-danger" id="issueBanBtn">Ban Member</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Create floating construction elements
-        const floatingElements = document.getElementById('floatingElements');
-        const constructionIcons = ['🔨', '🏗️', '⚒️', '🛠️', '🔧', '📐', '🚧', '👷', '🏭'];
+        // Admin credentials
+        const adminCredentials = {
+            'Conner': { password: 'Conner@2025', fullName: 'Conner' },
+            'Leo': { password: 'LeoSup@2025', fullName: 'Leo' },
+            'Hanzala': { password: 'Hanzala2025$', fullName: 'Hanzala' },
+            'Ayush': { password: 'AyushNayak@26', fullName: 'Ayush' },
+            'Ziad': { password: 'superziad@25', fullName: 'Ziad' }
+        };
+
+        // Current admin session
+        let currentAdmin = null;
+        let members = [];
+        let warnings = [];
+        let bans = [];
+
+        // DOM Elements
+        const loginPage = document.getElementById('loginPage');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const adminNameDisplay = document.getElementById('adminNameDisplay');
+        const welcomeMessage = document.getElementById('welcomeMessage');
         
-        for (let i = 0; i < 15; i++) {
-            const element = document.createElement('div');
-            element.className = 'floating-element';
-            element.textContent = constructionIcons[Math.floor(Math.random() * constructionIcons.length)];
-            element.style.left = `${Math.random() * 100}%`;
-            element.style.animationDuration = `${15 + Math.random() * 20}s`;
-            element.style.animationDelay = `${Math.random() * 5}s`;
-            element.style.fontSize = `${1 + Math.random() * 2}rem`;
-            floatingElements.appendChild(element);
-        }
+        // Stats elements
+        const totalMembersEl = document.getElementById('totalMembers');
+        const warnedMembersEl = document.getElementById('warnedMembers');
+        const bannedMembersEl = document.getElementById('bannedMembers');
+        const activeMembersEl = document.getElementById('activeMembers');
         
-        // Interactive building floors
-        const floors = document.querySelectorAll('.floor:not(.floor-completed)');
-        let completedFloors = 2;
+        // Table elements
+        const membersTableBody = document.getElementById('membersTableBody');
+        const warningsTableBody = document.getElementById('warningsTableBody');
+        const bansTableBody = document.getElementById('bansTableBody');
         
-        floors.forEach(floor => {
-            floor.addEventListener('click', function() {
-                if (!this.classList.contains('floor-completed')) {
-                    this.classList.add('floor-completed');
-                    completedFloors++;
-                    
-                    // Update progress
-                    const progress = Math.min(65 + (completedFloors - 2) * 10, 100);
-                    document.getElementById('progressFill').style.width = `${progress}%`;
-                    document.getElementById('progressPercentage').textContent = `${progress}%`;
-                    
-                    // Update crane hook position
-                    const craneHook = document.querySelector('.crane-hook');
-                    if (completedFloors === 3) {
-                        craneHook.style.bottom = '100px';
-                    } else if (completedFloors === 4) {
-                        craneHook.style.bottom = '60px';
-                    } else if (completedFloors === 5) {
-                        craneHook.style.bottom = '20px';
+        // Modal elements
+        const addMemberModal = document.getElementById('addMemberModal');
+        const warnMemberModal = document.getElementById('warnMemberModal');
+        const banMemberModal = document.getElementById('banMemberModal');
+        const addMemberBtn = document.getElementById('addMemberBtn');
+        const warnMemberBtn = document.getElementById('warnMemberBtn');
+        const banMemberBtn = document.getElementById('banMemberBtn');
+        const warnMemberSelect = document.getElementById('warnMemberSelect');
+        const banMemberSelect = document.getElementById('banMemberSelect');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is already logged in (from localStorage)
+            const savedAdmin = localStorage.getItem('cicawards_admin');
+            if (savedAdmin) {
+                try {
+                    currentAdmin = JSON.parse(savedAdmin);
+                    if (adminCredentials[currentAdmin.username]) {
+                        showDashboard();
+                        loadData();
+                    } else {
+                        localStorage.removeItem('cicawards_admin');
                     }
-                    
-                    // If all floors completed
-                    if (completedFloors >= 5) {
-                        document.getElementById('progressFill').style.width = '100%';
-                        document.getElementById('progressPercentage').textContent = '100%';
-                    }
+                } catch (e) {
+                    localStorage.removeItem('cicawards_admin');
+                }
+            }
+
+            // Load sample data if no data exists
+            if (localStorage.getItem('cicawards_members') === null) {
+                initializeSampleData();
+            } else {
+                loadData();
+            }
+
+            // Event Listeners
+            loginForm.addEventListener('submit', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Tab switching
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+            
+            // Modal open buttons
+            addMemberBtn.addEventListener('click', () => openModal('addMemberModal'));
+            warnMemberBtn.addEventListener('click', () => {
+                populateMemberSelect(warnMemberSelect);
+                openModal('warnMemberModal');
+            });
+            banMemberBtn.addEventListener('click', () => {
+                populateMemberSelect(banMemberSelect);
+                openModal('banMemberModal');
+            });
+            
+            // Modal close buttons
+            document.querySelectorAll('.close-modal, [data-modal]').forEach(btn => {
+                if (btn.classList.contains('close-modal') || btn.getAttribute('data-modal')) {
+                    btn.addEventListener('click', function() {
+                        const modalId = this.getAttribute('data-modal');
+                        closeModal(modalId);
+                    });
                 }
             });
+            
+            // Modal overlay close
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeModal(this.id);
+                    }
+                });
+            });
+            
+            // Form submissions
+            document.getElementById('saveMemberBtn').addEventListener('click', addNewMember);
+            document.getElementById('issueWarningBtn').addEventListener('click', issueWarning);
+            document.getElementById('issueBanBtn').addEventListener('click', issueBan);
+            
+            // Initialize tables
+            updateTables();
         });
-        
-        // Countdown timer
-        function updateCountdown() {
-            // Set target date (3 months from now)
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 45);
-            targetDate.setHours(targetDate.getHours() + 12);
-            targetDate.setMinutes(targetDate.getMinutes() + 30);
-            targetDate.setSeconds(targetDate.getSeconds() + 15);
+
+        // Functions
+        function handleLogin(e) {
+            e.preventDefault();
             
-            const now = new Date().getTime();
-            const timeRemaining = targetDate - now;
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
             
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            // Reset error messages
+            document.getElementById('usernameError').style.display = 'none';
+            document.getElementById('passwordError').style.display = 'none';
             
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            // Validate credentials
+            if (!adminCredentials[username]) {
+                document.getElementById('usernameError').textContent = 'Invalid username';
+                document.getElementById('usernameError').style.display = 'block';
+                return;
+            }
             
-            // Update target date display
-            const targetDateElement = document.querySelector('.progress-text span:last-child');
-            const options = { month: 'short', day: 'numeric', year: 'numeric' };
-            targetDateElement.textContent = `Target: ${targetDate.toLocaleDateString('en-US', options)}`;
+            if (adminCredentials[username].password !== password) {
+                document.getElementById('passwordError').textContent = 'Invalid password';
+                document.getElementById('passwordError').style.display = 'block';
+                return;
+            }
+            
+            // Login successful
+            currentAdmin = {
+                username: username,
+                fullName: adminCredentials[username].fullName
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('cicawards_admin', JSON.stringify(currentAdmin));
+            
+            // Show dashboard
+            showDashboard();
+            loadData();
         }
-        
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
-        
-        // Interactive buttons
-        document.getElementById('speedUpBtn').addEventListener('click', function() {
-            const progressFill = document.getElementById('progressFill');
-            const progressPercentage = document.getElementById('progressPercentage');
-            let currentProgress = parseInt(progressFill.style.width) || 65;
+
+        function handleLogout() {
+            currentAdmin = null;
+            localStorage.removeItem('cicawards_admin');
+            showLogin();
             
-            if (currentProgress < 100) {
-                currentProgress = Math.min(currentProgress + 5, 100);
-                progressFill.style.width = `${currentProgress}%`;
-                progressPercentage.textContent = `${currentProgress}%`;
+            // Clear form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function showDashboard() {
+            loginPage.style.display = 'none';
+            dashboard.style.display = 'block';
+            
+            // Update admin info
+            adminNameDisplay.textContent = currentAdmin.fullName;
+            welcomeMessage.textContent = `Welcome, ${currentAdmin.fullName}`;
+        }
+
+        function showLogin() {
+            loginPage.style.display = 'flex';
+            dashboard.style.display = 'none';
+        }
+
+        function initializeSampleData() {
+            // Create initial members array
+            members = [
+                {
+                    id: 1,
+                    name: "Rares",
+                    phone: "+1234567890",
+                    whatsapp: "https://chat.whatsapp.com/example1",
+                    joinDate: "2024-01-15",
+                    status: "active",
+                    warnings: 0
+                },
+                {
+                    id: 2,
+                    name: "Conner",
+                    phone: "+1234567891",
+                    whatsapp: "https://chat.whatsapp.com/example2",
+                    joinDate: "2024-02-20",
+                    status: "active",
+                    warnings: 0
+                },
+                {
+                    id: 3,
+                    name: "Ramester",
+                    phone: "+1234567892",
+                    whatsapp: "https://chat.whatsapp.com/example3",
+                    joinDate: "2024-03-10",
+                    status: "warned",
+                    warnings: 1
+                }
+            ];
+            
+            // Initialize empty arrays for warnings and bans
+            warnings = [];
+            bans = [];
+            
+            // Save to localStorage
+            saveData();
+        }
+
+        function loadData() {
+            // Load from localStorage
+            const savedMembers = localStorage.getItem('cicawards_members');
+            const savedWarnings = localStorage.getItem('cicawards_warnings');
+            const savedBans = localStorage.getItem('cicawards_bans');
+            
+            if (savedMembers) members = JSON.parse(savedMembers);
+            if (savedWarnings) warnings = JSON.parse(savedWarnings);
+            if (savedBans) bans = JSON.parse(savedBans);
+            
+            updateStats();
+            updateTables();
+        }
+
+        function saveData() {
+            localStorage.setItem('cicawards_members', JSON.stringify(members));
+            localStorage.setItem('cicawards_warnings', JSON.stringify(warnings));
+            localStorage.setItem('cicawards_bans', JSON.stringify(bans));
+            
+            updateStats();
+            updateTables();
+        }
+
+        function updateStats() {
+            const total = members.length;
+            const warned = members.filter(m => m.status === 'warned').length;
+            const banned = members.filter(m => m.status === 'banned').length;
+            const active = members.filter(m => m.status === 'active').length;
+            
+            totalMembersEl.textContent = total;
+            warnedMembersEl.textContent = warned;
+            bannedMembersEl.textContent = banned;
+            activeMembersEl.textContent = active;
+        }
+
+        function updateTables() {
+            updateMembersTable();
+            updateWarningsTable();
+            updateBansTable();
+        }
+
+        function updateMembersTable() {
+            membersTableBody.innerHTML = '';
+            
+            members.forEach(member => {
+                const row = document.createElement('tr');
                 
-                // Also complete a floor if needed
-                if (currentProgress >= 75 && completedFloors < 3) {
-                    document.getElementById('floor3').click();
-                } else if (currentProgress >= 85 && completedFloors < 4) {
-                    document.getElementById('floor4').click();
-                } else if (currentProgress >= 95 && completedFloors < 5) {
-                    document.getElementById('floor5').click();
+                let statusClass = 'status-active';
+                let statusText = 'Active';
+                if (member.status === 'warned') {
+                    statusClass = 'status-warned';
+                    statusText = 'Warned';
+                } else if (member.status === 'banned') {
+                    statusClass = 'status-banned';
+                    statusText = 'Banned';
                 }
                 
-                // Animate button
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
+                row.innerHTML = `
+                    <td>${member.id}</td>
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.joinDate}</td>
+                    <td><span class="member-status ${statusClass}">${statusText}</span></td>
+                    <td>${member.warnings}</td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="table-btn warn" data-id="${member.id}" onclick="warnMember(${member.id})">
+                                <i class="fas fa-exclamation-triangle"></i> Warn
+                            </button>
+                            <button class="table-btn ban" data-id="${member.id}" onclick="banMember(${member.id})">
+                                <i class="fas fa-ban"></i> Ban
+                            </button>
+                            <button class="table-btn remove" data-id="${member.id}" onclick="removeMember(${member.id})">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                membersTableBody.appendChild(row);
+            });
+        }
+
+        function updateWarningsTable() {
+            warningsTableBody.innerHTML = '';
+            
+            warnings.forEach(warning => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${warning.memberName}</td>
+                    <td>${warning.date}</td>
+                    <td>${warning.reason}</td>
+                    <td>${warning.issuedBy}</td>
+                    <td>
+                        <button class="table-btn remove" onclick="removeWarning('${warning.id}')">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </td>
+                `;
+                
+                warningsTableBody.appendChild(row);
+            });
+        }
+
+        function updateBansTable() {
+            bansTableBody.innerHTML = '';
+            
+            bans.forEach(ban => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${ban.memberName}</td>
+                    <td>${ban.date}</td>
+                    <td>${ban.reason}</td>
+                    <td>${ban.bannedBy}</td>
+                    <td>
+                        <button class="table-btn" onclick="unbanMember('${ban.memberId}')">
+                            <i class="fas fa-unlock"></i> Unban
+                        </button>
+                    </td>
+                `;
+                
+                bansTableBody.appendChild(row);
+            });
+        }
+
+        function populateMemberSelect(selectElement) {
+            selectElement.innerHTML = '<option value="">Choose a member...</option>';
+            
+            members.forEach(member => {
+                if (member.status !== 'banned') {
+                    const option = document.createElement('option');
+                    option.value = member.id;
+                    option.textContent = `${member.name} (ID: ${member.id})`;
+                    selectElement.appendChild(option);
+                }
+            });
+        }
+
+        function addNewMember() {
+            const name = document.getElementById('memberName').value.trim();
+            const phone = document.getElementById('memberPhone').value.trim();
+            const whatsapp = document.getElementById('memberWhatsApp').value.trim();
+            
+            if (!name || !phone) {
+                alert('Please fill in all required fields');
+                return;
             }
-        });
-        
-        document.getElementById('addWorkerBtn').addEventListener('click', function() {
-            // Add a new floating construction worker
-            const worker = document.createElement('div');
-            worker.className = 'floating-element';
-            worker.textContent = '👷';
-            worker.style.left = `${Math.random() * 100}%`;
-            worker.style.animationDuration = `${10 + Math.random() * 15}s`;
-            worker.style.fontSize = `${1.5 + Math.random() * 1}rem`;
-            floatingElements.appendChild(worker);
             
-            // Increase crane animation speed temporarily
-            const craneArm = document.querySelector('.crane-arm');
-            const craneHook = document.querySelector('.crane-hook');
-            const originalSpeed = craneArm.style.animationDuration;
+            // Generate new ID
+            const newId = members.length > 0 ? Math.max(...members.map(m => m.id)) + 1 : 1;
             
-            craneArm.style.animationDuration = '4s';
-            craneHook.style.animationDuration = '4s';
+            // Create new member
+            const newMember = {
+                id: newId,
+                name: name,
+                phone: phone,
+                whatsapp: whatsapp,
+                joinDate: new Date().toISOString().split('T')[0],
+                status: 'active',
+                warnings: 0
+            };
             
-            setTimeout(() => {
-                craneArm.style.animationDuration = originalSpeed;
-                craneHook.style.animationDuration = originalSpeed;
-            }, 2000);
+            members.push(newMember);
+            saveData();
             
-            // Animate button
-            this.innerHTML = '<i class="fas fa-hard-hat"></i> Worker Added!';
-            this.style.background = 'linear-gradient(90deg, #2ecc71, #27ae60)';
+            // Clear form and close modal
+            document.getElementById('addMemberForm').reset();
+            closeModal('addMemberModal');
             
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-hard-hat"></i> Add Construction Worker';
-                this.style.background = 'linear-gradient(90deg, #ff9900, #ffcc00)';
-            }, 1500);
-        });
-        
-        document.getElementById('notifyBtn').addEventListener('click', function() {
-            this.innerHTML = '<i class="fas fa-check"></i> You\'ll Be Notified!';
-            this.style.background = 'linear-gradient(90deg, #3498db, #2980b9)';
+            alert('Member added successfully!');
+        }
+
+        function issueWarning() {
+            const memberId = parseInt(warnMemberSelect.value);
+            const reason = document.getElementById('warnReason').value.trim();
             
-            // Reset button after 2 seconds
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-bell"></i> Notify Me When Ready';
-                this.style.background = 'linear-gradient(90deg, #ff9900, #ffcc00)';
-            }, 2000);
-        });
-        
-        // Make the crane hook follow mouse on building
-        const building = document.querySelector('.building');
-        const craneHook = document.querySelector('.crane-hook');
-        
-        building.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Only move the hook if construction isn't complete
-            if (completedFloors < 5) {
-                craneHook.style.left = `${x}px`;
-                craneHook.style.bottom = `${rect.height - y}px`;
+            if (!memberId || !reason) {
+                alert('Please select a member and provide a reason');
+                return;
             }
-        });
+            
+            const member = members.find(m => m.id === memberId);
+            if (!member) {
+                alert('Member not found');
+                return;
+            }
+            
+            // Update member status
+            member.status = 'warned';
+            member.warnings++;
+            
+            // Create warning record
+            const warningId = Date.now().toString();
+            const warning = {
+                id: warningId,
+                memberId: memberId,
+                memberName: member.name,
+                date: new Date().toISOString().split('T')[0],
+                reason: reason,
+                issuedBy: currentAdmin.fullName
+            };
+            
+            warnings.push(warning);
+            saveData();
+            
+            // Clear form and close modal
+            document.getElementById('warnMemberForm').reset();
+            closeModal('warnMemberModal');
+            
+            alert(`Warning issued to ${member.name}`);
+        }
+
+        function issueBan() {
+            const memberId = parseInt(banMemberSelect.value);
+            const reason = document.getElementById('banReason').value.trim();
+            
+            if (!memberId || !reason) {
+                alert('Please select a member and provide a reason');
+                return;
+            }
+            
+            const member = members.find(m => m.id === memberId);
+            if (!member) {
+                alert('Member not found');
+                return;
+            }
+            
+            // Update member status
+            member.status = 'banned';
+            
+            // Create ban record
+            const ban = {
+                memberId: memberId,
+                memberName: member.name,
+                date: new Date().toISOString().split('T')[0],
+                reason: reason,
+                bannedBy: currentAdmin.fullName
+            };
+            
+            bans.push(ban);
+            saveData();
+            
+            // Clear form and close modal
+            document.getElementById('banMemberForm').reset();
+            closeModal('banMemberModal');
+            
+            alert(`${member.name} has been banned`);
+        }
+
+        // Action functions for table buttons
+        window.warnMember = function(memberId) {
+            const member = members.find(m => m.id === memberId);
+            if (member) {
+                const reason = prompt(`Enter warning reason for ${member.name}:`);
+                if (reason && reason.trim()) {
+                    member.status = 'warned';
+                    member.warnings++;
+                    
+                    const warningId = Date.now().toString();
+                    const warning = {
+                        id: warningId,
+                        memberId: memberId,
+                        memberName: member.name,
+                        date: new Date().toISOString().split('T')[0],
+                        reason: reason.trim(),
+                        issuedBy: currentAdmin.fullName
+                    };
+                    
+                    warnings.push(warning);
+                    saveData();
+                    
+                    alert(`Warning issued to ${member.name}`);
+                }
+            }
+        };
+
+        window.banMember = function(memberId) {
+            const member = members.find(m => m.id === memberId);
+            if (member) {
+                const reason = prompt(`Enter ban reason for ${member.name}:`);
+                if (reason && reason.trim()) {
+                    member.status = 'banned';
+                    
+                    const ban = {
+                        memberId: memberId,
+                        memberName: member.name,
+                        date: new Date().toISOString().split('T')[0],
+                        reason: reason.trim(),
+                        bannedBy: currentAdmin.fullName
+                    };
+                    
+                    bans.push(ban);
+                    saveData();
+                    
+                    alert(`${member.name} has been banned`);
+                }
+            }
+        };
+
+        window.removeMember = function(memberId) {
+            if (confirm('Are you sure you want to remove this member? This action cannot be undone.')) {
+                const index = members.findIndex(m => m.id === memberId);
+                if (index !== -1) {
+                    members.splice(index, 1);
+                    
+                    // Remove related warnings and bans
+                    warnings = warnings.filter(w => w.memberId !== memberId);
+                    bans = bans.filter(b => b.memberId !== memberId);
+                    
+                    saveData();
+                    alert('Member removed successfully');
+                }
+            }
+        };
+
+        window.removeWarning = function(warningId) {
+            if (confirm('Are you sure you want to remove this warning?')) {
+                const index = warnings.findIndex(w => w.id === warningId);
+                if (index !== -1) {
+                    warnings.splice(index, 1);
+                    saveData();
+                    alert('Warning removed successfully');
+                }
+            }
+        };
+
+        window.unbanMember = function(memberId) {
+            if (confirm('Are you sure you want to unban this member?')) {
+                const member = members.find(m => m.id === memberId);
+                if (member) {
+                    member.status = 'active';
+                    
+                    // Remove from bans
+                    const banIndex = bans.findIndex(b => b.memberId === memberId);
+                    if (banIndex !== -1) {
+                        bans.splice(banIndex, 1);
+                    }
+                    
+                    saveData();
+                    alert(`${member.name} has been unbanned`);
+                }
+            }
+        };
+
+        function switchTab(tabId) {
+            // Update active tab button
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            
+            // Update active tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabId}Tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                
+                // Reset forms
+                const form = modal.querySelector('form');
+                if (form) {
+                    form.reset();
+                }
+            }
+        }
     </script>
 </body>
 </html>
+              
